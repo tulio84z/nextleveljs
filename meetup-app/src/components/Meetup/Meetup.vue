@@ -3,26 +3,37 @@
     <v-flex xs12>
       <v-card>
         <v-card-title>
-          <h6 class="primary--text">My Meetup</h6>
+          <h6 class="primary--text"> {{ meetup.title }}</h6>
         </v-card-title>
-        <v-card-media
-          src="https://www.telegraph.co.uk/content/dam/Travel/hotels/europe/france/paris/paris-cityscape-overview-guide-xlarge.jpg"
+        <v-img
+          :src="meetup.imageUrl"
           contain
         >
-        </v-card-media>
+      </v-img>
         <v-card-text>
-          <div class="info--text">7th july 2017 - Where it takes place</div>
+          <div class="info--text">{{ meetup.date}} - Where it takes place</div>
           Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.
 Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.
         </v-card-text>
 
-        <v-card-action>
+        <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn class="primary">
             Register
           </v-btn>
-        </v-card-action>
+        </v-card-actions>
       </v-card>
     </v-flex>
   </v-container>
 </template>
+
+<script>
+  export default {
+    props: ['id'],
+    computed: {
+      meetup() {
+        return this.$store.getters.loadedMeetup(this.id)
+      }
+    }
+  }
+</script>

@@ -39,18 +39,14 @@
 
 <script>
 export default {
-  data () {
-    return {
-      meetups: [
-        { imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV8aJFj8xS1koLcFV7XpWa0BzGYq2z4BBvaFQEfDHQ5HMR_7vj', id: 'New York Meetup', title: 'Meetup in New York'},
-        { imageUrl: 'https://www.telegraph.co.uk/content/dam/Travel/hotels/europe/france/paris/paris-cityscape-overview-guide-xlarge.jpg', id: 'Paris Meetup', title: 'Meetup in Paris'}
-      ],
-
+  computed: {
+    meetups () {
+      return this.$store.getters.featuredMeetups
     }
   },
   methods: {
     onLoadMeetup(id) {
-      this.$router.push('/meetup/'+1)
+      this.$router.push('/meetup/'+id)
     }
   }
 }
