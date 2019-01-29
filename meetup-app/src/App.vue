@@ -17,7 +17,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-toolbar dark class="purple darken-1">
+    <v-toolbar dark class="primary">
       <v-toolbar-side-icon
         @click.native.stop="sideNav = !sideNav"
         class="hidden-sm-and-up"
@@ -35,7 +35,7 @@
       <v-toolbar-items class="hidden-xs-only">
 
 
-        <v-btn flat v-for="item in menuItems" :key="item.title">
+        <v-btn flat v-for="item in menuItems" :key="item.title" router :to="item.link">
           <v-icon left dark> {{ item.icon }} </v-icon>
 
           {{ item.title }}
@@ -72,26 +72,9 @@
       }
     }
   }
+  
 </script>
 
 <style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>
