@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout row wrap>
+    <v-layout row wrap class="mt-2 center">
       <v-flex xs12 sm6 class="text-xs-center text-sm-right">
         <v-btn large router to="/meetups" class="primary"> Explore Meetups </v-btn>
       </v-flex>
@@ -17,6 +17,7 @@
             v-for="meetup in meetups"
             :key="meetup.id"
             :src="meetup.imageUrl"
+            @click="onLoadMeetup(meetup.id)"
           >
 
           <div class="title">
@@ -43,7 +44,13 @@ export default {
       meetups: [
         { imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSV8aJFj8xS1koLcFV7XpWa0BzGYq2z4BBvaFQEfDHQ5HMR_7vj', id: 'New York Meetup', title: 'Meetup in New York'},
         { imageUrl: 'https://www.telegraph.co.uk/content/dam/Travel/hotels/europe/france/paris/paris-cityscape-overview-guide-xlarge.jpg', id: 'Paris Meetup', title: 'Meetup in Paris'}
-      ]
+      ],
+
+    }
+  },
+  methods: {
+    onLoadMeetup(id) {
+      this.$router.push('/meetup/'+1)
     }
   }
 }

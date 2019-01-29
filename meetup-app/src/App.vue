@@ -51,8 +51,7 @@
     <main>
       <router-view></router-view>
     </main>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-        rel="stylesheet">
+    
   </v-app>
 
 </template>
@@ -72,7 +71,7 @@
       }
     }
   }
-  
+
 </script>
 
 <style>
