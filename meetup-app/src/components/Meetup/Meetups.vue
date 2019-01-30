@@ -17,7 +17,7 @@
                   <v-card-title primary-title>
                     <div>
                       <h5 class="white--text mb-0">
-                        My Meetup
+                        {{ meetup.title }}
                       </h5>
                       <div>
                          {{ meetup.date }}
