@@ -30,7 +30,7 @@
       </v-flex>
     </v-layout>
     <v-layout row wrap class="mt-2">
-      <v-flex xs12 sm6 class="text-xs-center">
+      <v-flex xs12 class="text-xs-center">
         <p>Join our meetups</p>
       </v-flex>
     </v-layout>
