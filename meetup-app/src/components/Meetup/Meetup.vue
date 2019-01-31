@@ -11,9 +11,10 @@
         >
       </v-img>
         <v-card-text>
-          <div class="info--text">{{ meetup.date}} - Where it takes place</div>
-          Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.
-Lorem ipsum dolor sit amet, mel at clita quando. Te sit oratio vituperatoribus, nam ad ipsum posidonium mediocritatem, explicari dissentiunt cu mea. Repudiare disputationi vim in, mollis iriure nec cu, alienum argumentum ius ad. Pri eu justo aeque torquatos.
+          <div class="info--text">{{ meetup.date | date}} - {{meetup.location}}</div>
+          <div>
+            {{ meetup.description }}
+          </div>
         </v-card-text>
 
         <v-card-actions>
