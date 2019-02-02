@@ -6,8 +6,10 @@ import firebase from 'firebase';
 import router from "./router";
 import {store} from "./store";
 import DateFilter from './filters/date'
+import AlertCmp from './components/Shared/Alert.vue'
 
 Vue.filter('date', DateFilter)
+Vue.component('app-alert', AlertCmp)
 
 Vue.config.productionTip = false;
 

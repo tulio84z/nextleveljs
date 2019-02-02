@@ -1,5 +1,11 @@
 <template>
   <v-container>
+    <v-layout v-if="error">
+      <v-flex>
+        <app-alert @dismissed="onDismissed" :text="error.message">
+        </app-alert>
+      </v-flex>
+    </v-layout>
     <v-layout>
       <v-flex>
         <v-card>
@@ -58,6 +64,12 @@
 
         user() {
           return this.$store.getters.user
+        },
+        error() {
+          return this.$store.getters.error
+        },
+        loading() {
+          return this.$store.getters.loading
         }
     },
     watch: {
@@ -71,7 +83,11 @@
       onSignin () {
         //vuex
         this.$store.dispatch('signUserIn', {email: this.email, password: this.password})
-      }
+      },
+      onDismissed() {
+        console.log("Dismissed Alert!")
+        this.$store.dispatch('clearError')
+      },
     }
   }
 </script>
