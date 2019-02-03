@@ -32,6 +32,10 @@ export const store = new Vuex.Store({
   },
   mutations: {
 
+    setLoadedMeetups(state, payload) {
+      state.loadedMeetups = payload
+    }
+    ,
     createMeetup (state, payload) {
       state.loadedMeetups.push(payload)
     },
@@ -50,6 +54,33 @@ export const store = new Vuex.Store({
 
   },
   actions: {
+    loadMeetups({commit}) {
+      commit('setLoading', true)
+      firebase.database().ref('meetups').once('value')
+        .then((data) => {
+          const meetups = []
+          const obj = data.val()
+          for(let key in obj) {
+            meetups.push({
+              id: key,
+              title: obj[key].title,
+              description: obj[key].description,
+              imageUrl: obj[key].imageUrl,
+              date: obj[key].date,
+            })
+          }
+          commit('setLoadedMeetups', meetups)
+          commit('setLoading', false)
+        })
+        .catch(
+          (error) => {
+            console.log(error)
+            commit('setLoading', false)
+          }
+        )
+    }
+
+    ,
     signUserUp({commit},payload) {
       commit('setLoading', true )
       commit('clearError')
@@ -94,18 +125,27 @@ export const store = new Vuex.Store({
           }
         )
     },
-
-
     createMeetup ({commit}, payload) {
       const meetup = {
         title: payload.title,
         location: payload.location,
         imageUrl: payload.imageUrl,
         description: payload.description,
-        date: payload.date
+        date: payload.date.toISOString(),
       }
       // Reach out to firebase and store it
-      commit('createMeetup', meetup)
+      firebase.database().ref('meetups').push(meetup)
+        .then((data) => {
+          const key = data.key
+          console.log(data)
+          commit('createMeetup', {
+            ...meetup,
+            id: key
+          })
+        })
+        .catch((error) => {
+          console.log(error)
+        })
     }
   },
   getters: {
@@ -119,6 +159,7 @@ export const store = new Vuex.Store({
       return getters.loadedMeetups.slice(0,5)
     },
     loadedMeetup (state) {
+      console.log("hi")
       return (meetupId) => {
         return state.loadedMeetups.find((meetup) => {
           return meetup.id == meetupId

@@ -26,5 +26,7 @@ new Vue({
       storageBucket: "mymeetupproject.appspot.com",
       messagingSenderId: "134188105797",
     })
+
+    this.$store.dispatch('loadMeetups')
   }
 }).$mount('#app');

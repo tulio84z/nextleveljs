@@ -10,6 +10,15 @@
       </v-flex>
 
     </v-layout>
+    <v-layout>
+      <v-flex>
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          v-if="loading"
+        ></v-progress-circular>
+      </v-flex>
+    </v-layout>
     <v-layout row wrap class="mt-2">
       <v-flex xs12>
         <v-carousel>
@@ -40,6 +49,9 @@
 <script>
 export default {
   computed: {
+    loading () {
+      return this.$store.getters.loading
+    },
     meetups () {
       return this.$store.getters.featuredMeetups
     }
