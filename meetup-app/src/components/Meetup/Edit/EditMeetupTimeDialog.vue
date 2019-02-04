@@ -16,8 +16,7 @@
             <v-time-picker
               v-model="editableTime"
               style="width: 100%"
-              actions
-              format="24hrs"
+              format="24hr"
             >
               <template scope="{save, cancel}">
                 <v-btn class="blue--text darken-1" flat @click.native="editDialog = false">
