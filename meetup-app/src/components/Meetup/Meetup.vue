@@ -49,7 +49,7 @@
             <v-spacer></v-spacer>
             <app-meetup-register-dialog
               :meetupId="meetup.id"
-              v-if="!userIsCreator"
+              v-if="!userIsCreator && userIsAuthenticated"
             >
             </app-meetup-register-dialog>
           </v-card-actions>
