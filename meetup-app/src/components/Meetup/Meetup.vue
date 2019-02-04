@@ -1,6 +1,6 @@
 <template>
   <v-container row wrap>
-    <v-layout row wrap v-if="isLoading">
+    <v-layout row wrap v-if="loading">
       <v-flex>
         <v-progress-circular
           indeterminate
@@ -33,6 +33,14 @@
           <v-card-text>
             <div class="info--text">{{ meetup.date | date}} - {{meetup.location}}</div>
             <div>
+              <app-edit-meetup-date-dialog :meetup="meetup" v-if="userIsCreator"></app-edit-meetup-date-dialog>
+              <app-edit-meetup-time-dialog
+                :meetup="meetup"
+                v-if="userIsCreator"
+              >
+              </app-edit-meetup-time-dialog>
+            </div>
+            <div>
               {{ meetup.description }}
             </div>
           </v-card-text>
@@ -64,11 +72,10 @@
           return false
         }
         return this.$store.getters.user.id === this.meetup.creatorId
-      }
+      },
+      loading () {
+        return this.$store.getters.loading
+      },
     },
-    loading () {
-      return this.$store.getters.loading
-    },
-
   }
 </script>
