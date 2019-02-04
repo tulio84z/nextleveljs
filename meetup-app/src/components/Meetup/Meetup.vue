@@ -1,30 +1,51 @@
 <template>
   <v-container row wrap>
-    <v-flex xs12>
-      <v-card>
-        <v-card-title>
-          <h6 class="primary--text"> {{ meetup.title }}</h6>
-        </v-card-title>
-        <v-img
-          :src="meetup.imageUrl"
-          contain
-        >
-      </v-img>
-        <v-card-text>
-          <div class="info--text">{{ meetup.date | date}} - {{meetup.location}}</div>
-          <div>
-            {{ meetup.description }}
-          </div>
-        </v-card-text>
+    <v-layout row wrap v-if="isLoading">
+      <v-flex>
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          v-if="loading"
+        ></v-progress-circular>
+      </v-flex>
+    </v-layout>
+    <v-layout row wrap v-else>
+      <v-flex xs12>
+        <v-card>
+          <v-card-title>
+            <h6 class="primary--text"> {{ meetup.title }}</h6>
+            <template v-if="userIsCreator">
+              <v-spacer></v-spacer>
+                <app-edit-meetup-details-dialog
+                  :meetup="meetup"
+                  >
+                </app-edit-meetup-details-dialog>
 
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn class="primary">
-            Register
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-flex>
+            </template>
+
+
+          </v-card-title>
+          <v-img
+            :src="meetup.imageUrl"
+            contain
+          >
+          </v-img>
+          <v-card-text>
+            <div class="info--text">{{ meetup.date | date}} - {{meetup.location}}</div>
+            <div>
+              {{ meetup.description }}
+            </div>
+          </v-card-text>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn class="primary">
+              Register
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 
@@ -34,7 +55,20 @@
     computed: {
       meetup() {
         return this.$store.getters.loadedMeetup(this.id)
+      },
+      userIsAuthenticated () {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
+      },
+      userIsCreator () {
+        if (!this.userIsAuthenticated) {
+          return false
+        }
+        return this.$store.getters.user.id === this.meetup.creatorId
       }
-    }
+    },
+    loading () {
+      return this.$store.getters.loading
+    },
+
   }
 </script>
