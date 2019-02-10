@@ -7,6 +7,7 @@ export default new Vuex.Store({
 
   state: {
     user: null,
+    registeredUsers: [],
     posts: [
       {
         message: 'this is the first post',
@@ -22,23 +23,37 @@ export default new Vuex.Store({
     ],
     groups: [
       {},
-    ]
+    ],
   },
   mutations: {
     setUser(state, payload) {
       state.user = payload
     },
+    registerUser(state, payload) {
+
+      state.registeredUsers.push(payload)
+    }
   },
   actions: {
     login({commit}, payload) {
-      const newUser = {
+      const myUser = {
         id: 'fakeId',
       }
-      commit('setUser', newUser)
+      commit('setUser', myUser)
     },
     logout({commit}, payload) {
 
       commit('setUser', null)
+    },
+    signup({commit}, payload) {
+      var uuid = Math.random().toString(36).substr(2,5)
+      const newUser = {
+        id: uuid,
+        email: payload.email,
+        name: payload.name,
+        password: payload.password
+      }
+      commit('registerUser', newUser)
     },
   },
 

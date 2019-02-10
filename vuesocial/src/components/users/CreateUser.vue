@@ -42,11 +42,17 @@
                           type="password"
                           v-model="form.repeatpwd"
                           required
+                          aria-describedby="inputRepeatPwdCheck"
+                          :state="isRepeatedPwdOk"
                           placeholder="Repeat password">
             </b-form-input>
+            <b-form-invalid-feedback id="inputRepeatPwdCheck">
+              <!-- This will only be shown if the preceeding input has an invalid state -->
+              Passwords do not match!
+            </b-form-invalid-feedback>
           </b-form-group>
 
-          <b-button type="submit" variant="primary">Submit</b-button>
+          <b-button type="submit" variant="primary" :disabled="!formIsValid">Submit</b-button>
           <b-button type="reset" variant="danger">Reset</b-button>
         </b-form>
   </div>
@@ -66,10 +72,23 @@ export default {
       show: true
     }
   },
+  computed : {
+    isRepeatedPwdOk () {
+      return this.form.pwd === this.form.repeatpwd
+    },
+    formIsValid () {
+      return this.form.email !== '' &&
+          this.form.name !== '' &&
+         this.form.pwd !== '' &&
+         this.isRepeatedPwdOk
+
+    }
+  },
   methods: {
     onSubmit (evt) {
       evt.preventDefault();
-      alert(JSON.stringify(this.form));
+      //alert(JSON.stringify(this.form));
+      this.$store.dispatch('signup', {email: this.form.email, password: this.form.pwd, name: this.form.name})
     },
     onReset (evt) {
       evt.preventDefault();
