@@ -8,15 +8,12 @@
         <router-link to="/" tag="span" style="cursor: pointer">
           VueSocial
         </router-link>
-
-
-
       </b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
 
         <!-- Right aligned nav items -->
-        <b-navbar-nav class="ml-auto" v-if="loggedIn">
+        <b-navbar-nav class="ml-auto" v-if="userIsAuthenticated">
           <b-nav-item>
             <router-link to="/create-post" tag="span" style="cursor: pointer">
               Create Post
@@ -53,14 +50,15 @@
 </template>
 <script>
   export default {
-    data () {
-      return {
-        loggedIn: true
+
+    computed: {
+      userIsAuthenticated () {
+        return this.$store.getters.user !== null && this.$store.getters.user !== undefined
       }
     },
     methods : {
       onLogout () {
-        this.loggedIn = false
+        this.$store.dispatch('logout')
       }
     }
   }
