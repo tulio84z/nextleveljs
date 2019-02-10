@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import * as firebase from 'firebase';
+import router from '@/router'
 
 Vue.use(Vuex)
 
@@ -80,10 +81,26 @@ export default new Vuex.Store({
         })
     },
     autoSignIn ({commit}, payload) {
-      console.log(payload)
-      // commit('setUser', {
-      //   id:payload.uid,
-      // })
+
+      commit('setUser', {
+        id:payload.uid,
+      })
+    },
+    createPost({commit, getters}, payload) {
+
+      const post = {
+        message: payload.message,
+        creatorId: getters.user.id
+      }
+
+      firebase.database().ref('posts').push(post)
+        .then(data => {
+          console.log(data)
+          router.push('/')
+        })
+        .catch(error => {
+          console.log(error)
+        })
     },
   },
 
