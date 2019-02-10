@@ -7,6 +7,22 @@ export default new Vuex.Store({
 
   state: {
     user: null,
+    posts: [
+      {
+        message: 'this is the first post',
+        group: 'groupId-1',
+        user: 'user1'
+      },
+      {
+        message: 'this is the second post',
+        group: null,
+        user: 'user1'
+      },
+
+    ],
+    groups: [
+      {},
+    ]
   },
   mutations: {
     setUser(state, payload) {
@@ -25,9 +41,16 @@ export default new Vuex.Store({
       commit('setUser', null)
     },
   },
+
   getters: {
     user (state) {
       return state.user
+    },
+    posts (state) {
+      return state.posts
+    },
+    groups (state) {
+      return state.groups
     },
   }
 })
