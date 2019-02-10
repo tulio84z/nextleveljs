@@ -69,7 +69,8 @@ export default {
         pwd: '',
         repeatpwd: '',
       },
-      show: true
+      show: true,
+
     }
   },
   computed : {
@@ -81,8 +82,10 @@ export default {
           this.form.name !== '' &&
          this.form.pwd !== '' &&
          this.isRepeatedPwdOk
-
-    }
+    },
+    user() {
+      return this.$store.getters.user
+    },
   },
   methods: {
     onSubmit (evt) {
@@ -101,6 +104,13 @@ export default {
       this.show = false;
       this.$nextTick(() => { this.show = true });
     }
-  }
+  },
+  watch: {
+    user (value) {
+      if (value !== null && value !== undefined) {
+        this.$router.push('/')
+      }
+    }
+  },
 }
 </script>

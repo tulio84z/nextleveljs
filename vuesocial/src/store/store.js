@@ -57,6 +57,7 @@ export default new Vuex.Store({
         password: payload.password
       }
       commit('registerUser', newUser)
+      commit('setUser', newUser)
     },
   },
 

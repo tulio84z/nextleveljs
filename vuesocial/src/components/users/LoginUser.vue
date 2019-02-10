@@ -40,13 +40,14 @@ export default {
         email: '',
         password: '',
       },
-      show: true
+      show: true,
     }
   },
   computed: {
     user() {
       return this.$store.getters.user
     },
+
   },
   methods : {
 
