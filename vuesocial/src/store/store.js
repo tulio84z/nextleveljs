@@ -29,17 +29,20 @@ export default new Vuex.Store({
     setUser(state, payload) {
       state.user = payload
     },
-    registerUser(state, payload) {
 
+    registerUser(state, payload) {
       state.registeredUsers.push(payload)
     }
   },
   actions: {
     login({commit}, payload) {
-      const myUser = {
-        id: 'fakeId',
+      var user = this.state.registeredUsers.find(n => n.email === payload.email)
+      if(user !== null || user !== undefined) {
+        commit('setUser', user)
+        return
+      } else {
+        console.log('An error has happened')
       }
-      commit('setUser', myUser)
     },
     logout({commit}, payload) {
 
@@ -60,6 +63,9 @@ export default new Vuex.Store({
   getters: {
     user (state) {
       return state.user
+    },
+    registeredUsers (state) {
+      return state.registeredUsers
     },
     posts (state) {
       return state.posts
