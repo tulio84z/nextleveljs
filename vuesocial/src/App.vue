@@ -1,6 +1,10 @@
 <template>
   <div id="app">
     <div id="nav">
+      <b-jumbotron header="Bootstrap Vue" lead="Bootstrap 4 Components for Vue.js 2" >
+  <p>For more information visit website</p>
+  <b-btn variant="primary" href="#">More Info</b-btn>
+</b-jumbotron>
       <router-link to="/">Home</router-link> |
       <router-link to="/about">About</router-link>
     </div>
