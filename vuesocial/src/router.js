@@ -1,10 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/home/Home.vue'
+
 import User from '@/components/users/DetailUser.vue'
 import CreateUser from '@/components/users/CreateUser.vue'
 import ListUsers from '@/components/users/ListUsers.vue'
 import UpdateUser from '@/components/users/UpdateUser.vue'
+import LoginUser from '@/components/users/LoginUser.vue'
 
 import Post from '@/components/posts/DetailPost.vue'
 import CreatePost from '@/components/posts/CreatePost.vue'
@@ -47,6 +49,11 @@ export default new Router({
       path: "/update-user",
       name: "updateUser",
       component: UpdateUser
+    },
+    {
+      path: "/login-user",
+      name: "loginUser",
+      component: LoginUser
     },
     //Post routes
     {
