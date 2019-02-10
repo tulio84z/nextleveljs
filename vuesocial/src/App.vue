@@ -1,35 +1,46 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <b-jumbotron header="Bootstrap Vue" lead="Bootstrap 4 Components for Vue.js 2" >
-  <p>For more information visit website</p>
-  <b-btn variant="primary" href="#">More Info</b-btn>
-</b-jumbotron>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <b-navbar toggleable="md" type="dark" variant="info">
+
+      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+
+      <b-navbar-brand href="#">VueSocial</b-navbar-brand>
+
+      <b-collapse is-nav id="nav_collapse">
+
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto" v-if="loggedIn">
+          <b-nav-item href="#">Create Post</b-nav-item>
+
+          <!-- <router-link to="/" tag="span" style="cursor: pointer">
+            DevMeetup
+          </router-link> -->
+
+
+
+
+          <b-nav-item href="#">Create Group</b-nav-item>
+          <b-nav-item href="#">Logout</b-nav-item>
+
+        </b-navbar-nav>
+        <b-navbar-nav class="ml-auto" v-else>
+          <b-nav-item href="#">Login</b-nav-item>
+          <b-nav-item href="#">Sign Up</b-nav-item>
+        </b-navbar-nav>
+
+      </b-collapse>
+    </b-navbar>
+    <h1>This it the Social App</h1>
+    <router-view></router-view>
   </div>
 </template>
+<script>
+  export default {
+    data () {
+      return {
 
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-#nav {
-  padding: 30px;
-}
-
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+        loggedIn: true
+      }
+    },
+  }
+</script>
