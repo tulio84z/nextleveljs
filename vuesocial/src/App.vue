@@ -30,7 +30,7 @@
 
       </b-collapse>
     </b-navbar>
-    <h1>This it the Social App</h1>
+    
     <router-view></router-view>
   </div>
 </template>

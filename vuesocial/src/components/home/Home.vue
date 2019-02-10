@@ -1,5 +1,5 @@
 <template>
-  <h1>Main Page</h1>
+  <h1>This it the Social App</h1>
 </template>
 
 <script>
