@@ -2,9 +2,12 @@
   <div>
     <h1>This it the Social App</h1>
     <ol>
-      <li v-for="todo in todos">
-        {{todo}}
-      </li>
+      <post-item
+        v-for="(post, index) in posts"
+        v-bind:post="post"
+        :key="index"
+        >
+      </post-item>
     </ol>
   </div>
 
@@ -14,18 +17,20 @@
 export default {
   data () {
     return {
-      todos: [1,2,3]
+      items: [1,2,3]
     }
   },
-  computed: {
-
+  computed:{
+    posts () {
+      if (this.$store.getters.user){
+        return this.$store.getters.user.posts
+      }
+      return []
+    }
   },
   methods: {
-    
+
   },
 
 }
 </script>
-
-<style lang="css" scoped>
-</style>

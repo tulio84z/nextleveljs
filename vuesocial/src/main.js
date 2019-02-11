@@ -7,9 +7,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '@/assets/css/master.css'
 import firebase from 'firebase';
+import PostItem from '@/components/posts/PostItem.vue'
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
+
+Vue.component('post-item', PostItem)
 
 new Vue({
   router,

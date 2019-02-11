@@ -90,7 +90,7 @@ export default new Vuex.Store({
         .then(data => {
 
           const updatedUser = updateLocalUsersPosts(data)
-          console.log(updatedUser)
+
           commit('setUser', updatedUser)
         })
         .catch(error => {
@@ -113,7 +113,7 @@ export default new Vuex.Store({
           newUser.id=data.user.uid
           newUser.email=payload.email
           newUser.name=payload.name
-          
+
           commit('setUser', newUser)
         })
         .catch(error => {
