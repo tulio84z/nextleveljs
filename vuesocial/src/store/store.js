@@ -14,16 +14,20 @@ function updateLocalUsersPosts(dbposts) {
     posts.push(entry)
   })
 
-  const user = instantiateUser(posts[0].creatorId, posts)
+  const user = instantiateUser()
+  user.id = posts[0].creatorId
+  user.posts = posts
 
   return user
 }
 
-function instantiateUser(idField, postsArr){
+function instantiateUser() {
 
   const user = {
-    id: idField,
-    posts: postsArr,
+    id: '',
+    posts: [],
+    email: '',
+    name: '',
     getPosts,
   }
 
@@ -32,6 +36,7 @@ function instantiateUser(idField, postsArr){
   }
   return user
 }
+
 function getPostsPromiseFromDatabase(userId) {
   return firebase.database().ref('/posts/' + userId).once('value')
 }
@@ -40,8 +45,8 @@ export default new Vuex.Store({
 
   state: {
     user: '',
-
   },
+
   mutations: {
     setUser(state, payload) {
       state.user = payload
@@ -67,11 +72,12 @@ export default new Vuex.Store({
 
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
         .then(data => {
-          const myUser = {
-            id: data.user.uid,
-            email: payload.email,
-            name: payload.name,
-          }
+          const myUser = instantiateUser()
+          myUser.id=data.user.uid
+          myUser.email=payload.email
+          myUser.name=payload.name
+
+
           return myUser
         })
         .then(user => {
@@ -102,11 +108,12 @@ export default new Vuex.Store({
 
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
         .then(user => {
-          const newUser = {
-            id: user.uid,
-            email: payload.email,
-            name: payload.name,
-          }
+
+          const newUser = instantiateUser()
+          newUser.id=data.user.uid
+          newUser.email=payload.email
+          newUser.name=payload.name
+          
           commit('setUser', newUser)
         })
         .catch(error => {
@@ -134,7 +141,15 @@ export default new Vuex.Store({
 
       firebase.database().ref('posts/' + user.id).push(post)
         .then(data => {
+
           console.log(data)
+          return getPostsPromiseFromDatabase(user.id)
+        })
+        .then(data => {
+          const updatedUser = updateLocalUsersPosts(data)
+
+          commit('setUser', updatedUser)
+
           router.push('/')
         })
         .catch(error => {
