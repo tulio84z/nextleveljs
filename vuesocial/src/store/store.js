@@ -5,47 +5,57 @@ import router from '@/router'
 
 Vue.use(Vuex)
 
+function updateLocalUsersPosts(dbposts) {
+
+  var dpPostsVals = dbposts.val()
+  var posts = []
+  Object.keys(dpPostsVals).forEach(function(key, index) {
+    var entry = dpPostsVals[key]
+    posts.push(entry)
+  })
+
+  const user = instantiateUser(posts[0].creatorId, posts)
+
+  return user
+}
+
+function instantiateUser(idField, postsArr){
+
+  const user = {
+    id: idField,
+    posts: postsArr,
+    getPosts,
+  }
+
+  function getPosts(){
+    return user.posts
+  }
+  return user
+}
+function getPostsPromiseFromDatabase(userId) {
+  return firebase.database().ref('/posts/' + userId).once('value')
+}
+
 export default new Vuex.Store({
 
   state: {
-    user: null,
+    user: '',
 
-    groups: [
-      {},
-    ],
   },
   mutations: {
     setUser(state, payload) {
       state.user = payload
     },
-
-    registerUser(state, payload) {
-      state.registeredUsers.push(payload)
-
-    }
   },
   actions: {
 
     fetchUserData({commit, getters}) {
       const user = getters.user
-      firebase.database().ref('/posts/' + user.id).once('value')
+      getPostsPromiseFromDatabase(user.id)
         .then(data => {
 
-          const retrievedData= data.val()
+          const updatedUser = updateLocalUsersPosts(data)
 
-          var userPostData = []
-          Object.entries(retrievedData).forEach(entry => {
-            let value = entry[1];
-            userPostData.push(value)
-          })
-
-          console.log(userPostData)
-
-          const updatedUser = {
-            id: user.id,
-            posts: [],
-
-          }
           commit('setUser', updatedUser)
         })
         .catch(error => {
@@ -53,33 +63,41 @@ export default new Vuex.Store({
         })
     },
 
-    login({commit}, payload) {
+    login({commit, getters}, payload) {
 
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
-        .then(user => {
+        .then(data => {
           const myUser = {
-            id: user.uid,
+            id: data.user.uid,
             email: payload.email,
             name: payload.name,
           }
-          commit('setUser', myUser)
+          return myUser
+        })
+        .then(user => {
+
+          commit('setUser', user)
+
+          return getPostsPromiseFromDatabase(user.id)
+
+        })
+        .then(data => {
+
+          const updatedUser = updateLocalUsersPosts(data)
+          console.log(updatedUser)
+          commit('setUser', updatedUser)
         })
         .catch(error => {
           console.log(error)
-        })
 
-      var user = this.state.registeredUsers.find(n => n.email === payload.email)
-      if(user !== null || user !== undefined) {
-        commit('setUser', user)
-        return
-      } else {
-        console.log('An error has happened')
-      }
+        })
     },
+
     logout({commit}, payload) {
 
       commit('setUser', null)
     },
+
     signup({commit}, payload) {
 
       firebase.auth().createUserWithEmailAndPassword(payload.email, payload.password)
@@ -95,15 +113,20 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
-    autoSignIn ({commit}, payload) {
 
-      commit('setUser', {
+    autoSignIn ({commit}, payload) {
+      const user = {
         id:payload.uid,
-      })
+      }
+
+      commit('setUser', user)
+
+
     },
     createPost({commit, getters}, payload) {
 
       const user = getters.user
+
       const post = {
         message: payload.message,
         creatorId: user.id
@@ -120,19 +143,9 @@ export default new Vuex.Store({
     },
   },
 
-
   getters: {
     user (state) {
       return state.user
-    },
-    registeredUsers (state) {
-      return state.registeredUsers
-    },
-    posts (state) {
-      return state.posts
-    },
-    groups (state) {
-      return state.groups
     },
   }
 })
