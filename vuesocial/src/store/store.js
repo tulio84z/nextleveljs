@@ -9,20 +9,7 @@ export default new Vuex.Store({
 
   state: {
     user: null,
-    registeredUsers: [],
-    posts: [
-      {
-        message: 'this is the first post',
-        group: 'groupId-1',
-        user: 'user1'
-      },
-      {
-        message: 'this is the second post',
-        group: null,
-        user: 'user1'
-      },
 
-    ],
     groups: [
       {},
     ],
@@ -38,6 +25,34 @@ export default new Vuex.Store({
     }
   },
   actions: {
+
+    fetchUserData({commit, getters}) {
+      const user = getters.user
+      firebase.database().ref('/posts/' + user.id).once('value')
+        .then(data => {
+
+          const retrievedData= data.val()
+
+          var userPostData = []
+          Object.entries(retrievedData).forEach(entry => {
+            let value = entry[1];
+            userPostData.push(value)
+          })
+
+          console.log(userPostData)
+
+          const updatedUser = {
+            id: user.id,
+            posts: [],
+
+          }
+          commit('setUser', updatedUser)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+
     login({commit}, payload) {
 
       firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
@@ -88,12 +103,13 @@ export default new Vuex.Store({
     },
     createPost({commit, getters}, payload) {
 
+      const user = getters.user
       const post = {
         message: payload.message,
-        creatorId: getters.user.id
+        creatorId: user.id
       }
 
-      firebase.database().ref('posts').push(post)
+      firebase.database().ref('posts/' + user.id).push(post)
         .then(data => {
           console.log(data)
           router.push('/')

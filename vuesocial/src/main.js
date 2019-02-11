@@ -24,10 +24,11 @@ new Vue({
       storageBucket: "myvuesocial.appspot.com",
       messagingSenderId: "569664720915"
     })
-    
+
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.$store.dispatch('autoSignIn', user)
+        this.$store.dispatch('fetchUserData')
       }
     })
   }
