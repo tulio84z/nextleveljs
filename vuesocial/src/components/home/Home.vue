@@ -1,14 +1,12 @@
 <template>
   <div>
-    <h1>This it the Social App</h1>
-    <ol>
-      <post-item
-        v-for="(post, index) in posts"
-        v-bind:post="post"
-        :key="index"
-        >
-      </post-item>
-    </ol>
+    <h1>Share your technical articles</h1>
+    <post-item
+      v-for="(post, index) in posts"
+      v-bind:post="post"
+      :key="index"
+      >
+    </post-item>
   </div>
 
 </template>
