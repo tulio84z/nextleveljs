@@ -21,7 +21,7 @@ export default {
   computed:{
     posts () {
       if (this.$store.getters.user){
-        return this.$store.getters.user.posts
+        return this.$store.getters.posts
       }
       return []
     }

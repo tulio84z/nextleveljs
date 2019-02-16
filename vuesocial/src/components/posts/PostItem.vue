@@ -13,7 +13,8 @@
       {{post}}
     </p>
 
-    <b-button href="#" variant="primary">Go somewhere</b-button>
+    <b-button href="#" variant="primary">Go to Article</b-button>
+    <b-button href="#" variant="secondary">Delete Post</b-button>
   </b-card>
 </template>
 

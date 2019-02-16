@@ -2,6 +2,19 @@
   <div class="">
     <h1>Create Post Page</h1>
     <b-form @submit="onSubmit" v-if="show">
+      <b-form-input
+          id="exampleInput2"
+          type="text"
+          v-model="form.title"
+          required
+          placeholder="Enter Title" />
+      <br>
+      <b-form-input
+          id="exampleInput3"
+          type="text"
+          v-model="form.url"
+          placeholder="Enter Image Url" />
+      <br>
       <b-form-textarea id="textarea1"
                    placeholder="Enter something"
                    :rows="3"
@@ -19,6 +32,8 @@ export default {
   data () {
     return {
       form: {
+        title: '',
+        url: '',
         message: '',
       },
       show: true,
@@ -26,7 +41,7 @@ export default {
   },
   computed: {
     isMessageNotBlank () {
-      return this.form.message !== ''
+      return this.form.message !== '' && this.form.title !== ''
     }
   },
 
@@ -34,7 +49,7 @@ export default {
     onSubmit (evt) {
       evt.preventDefault();
       //alert(JSON.stringify(this.form));
-      this.$store.dispatch('createPost', {message: this.form.message})
+      this.$store.dispatch('createPost', {title: this.form.title, url: this.form.url, message: this.form.message, })
     },
     onCancel () {
       this.$router.push('/')
