@@ -15,6 +15,11 @@
           v-model="form.url"
           placeholder="Enter Image Url" />
       <br>
+      <img
+        v-if="hasUrl"
+        :src="form.url"
+        height="200px"
+        width="200px">
       <b-form-textarea id="textarea1"
                    placeholder="Enter something"
                    :rows="3"
@@ -42,6 +47,9 @@ export default {
   computed: {
     isMessageNotBlank () {
       return this.form.message !== '' && this.form.title !== ''
+    },
+    hasUrl () {
+      return this.form.url !== '' && this.form.url !== null && this.form.url !== undefined
     }
   },
 

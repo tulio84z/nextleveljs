@@ -5,18 +5,6 @@ import router from '@/router'
 
 Vue.use(Vuex)
 
-function convertDbPostsToLocalPosts(dbposts) {
-  console.log('convertDbPostsToLocalPosts')
-
-  const dbVals = dbposts.val()
-
-  return dbVals
-}
-
-
-function getPostsPromiseFromDatabase(userId) {
-  return firebase.database().ref('/posts/').once('value')
-}
 
 export default new Vuex.Store({
 
@@ -148,11 +136,11 @@ export default new Vuex.Store({
         .then(data => {
 
           console.log(data)
-          return getPostsPromiseFromDatabase(user.id)
+          return firebase.database().ref('/posts/').once('value')
         })
         .then(data => {
 
-          const updatedPosts = convertDbPostsToLocalPosts(data)
+          const updatedPosts = data.val()
 
           commit('setPosts', updatedPosts)
 

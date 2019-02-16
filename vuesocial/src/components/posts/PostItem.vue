@@ -2,8 +2,7 @@
   <b-card
     v-if="post !== null"
     :title=post.title
-    img-src="https://picsum.photos/600/300/?image=25"
-    img-alt="Image"
+    :img-src="post.url"
     img-top
     tag="article"
     style="max-width: 20rem;"
@@ -11,7 +10,7 @@
       <p>
         {{post.message}}
       </p>
-
+      <img src="post.url" alt="">
     <br>
     <br>
 
@@ -40,6 +39,3 @@ export default {
   }
 }
 </script>
-
-<style lang="css" scoped>
-</style>
