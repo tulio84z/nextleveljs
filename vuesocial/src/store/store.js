@@ -154,7 +154,11 @@ export default new Vuex.Store({
   getters: {
     user (state) {
 
-      return state.user[Object.keys(state.user)[0]]
+      if (state.user !== null && state.user !== undefined){
+          return state.user[Object.keys(state.user)[0]]
+      }
+      return null
+
     },
     posts(state) {
       return state.posts
