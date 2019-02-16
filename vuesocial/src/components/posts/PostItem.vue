@@ -13,13 +13,18 @@
 
     <br>
     <br>
+    
     <b-button
       :to="'/post/' + postId"
       variant="primary"
       >
       Go to Article
     </b-button>
-    <b-button href="#" variant="secondary">Delete Post</b-button>
+    <delete-post-item-dialog
+      v-bind:postId="postId"
+
+    >
+    </delete-post-item-dialog>
   </b-card>
 </template>
 

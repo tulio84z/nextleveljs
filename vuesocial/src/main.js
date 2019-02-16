@@ -8,11 +8,14 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '@/assets/css/master.css'
 import firebase from 'firebase';
 import PostItem from '@/components/posts/PostItem.vue'
+import DeletePostDialog from "@/components/posts/DeletePostDialog.vue"
+
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
 Vue.component('post-item', PostItem)
+Vue.component('delete-post-item-dialog', DeletePostDialog)
 
 new Vue({
   router,

@@ -14,6 +14,13 @@ function convertDbPostsToLocalPosts(dbposts) {
   return dbVals
 }
 
+function userLogin() {
+
+}
+function savePosts() {
+
+}
+
 function getPostsPromiseFromDatabase(userId) {
   return firebase.database().ref('/posts/').once('value')
 }
@@ -35,6 +42,18 @@ export default new Vuex.Store({
     }
   },
   actions: {
+
+    deletePost({commit}, payload) {
+      console.log(payload.id)
+      firebase.database().ref('/posts').child(payload.id).remove()
+        .then(data => {
+          console.log('Removed sucessfully')
+
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
 
     fetchUserData({commit, getters}) {
       console.log('Fetching User Data!')
@@ -98,7 +117,7 @@ export default new Vuex.Store({
         })
     },
 
-    autoSignIn ({commit, getters}, payload) {
+    autoSignIn ({commit}, payload) {
       console.log('autoSignIn')
 
       firebase.database().ref('/users/' + payload.uid).once('value')
