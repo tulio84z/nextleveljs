@@ -21,6 +21,7 @@
       Go to Article
     </b-button>
     <delete-post-item-dialog
+      v-if="isOwner"
       v-bind:postId="postId"
 
     >
@@ -35,6 +36,9 @@ export default {
   computed: {
     post() {
       return this.$store.getters.getPostById(this.postId)
+    },
+    isOwner() {
+      return this.$store.getters.user.id === this.$store.getters.getPostById(this.postId).creatorId
     }
   }
 }
