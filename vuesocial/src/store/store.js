@@ -27,6 +27,7 @@ export default new Vuex.Store({
 
   mutations: {
     setUser(state, payload) {
+
       state.user = payload
     },
     setPosts(state, payload) {
@@ -90,7 +91,6 @@ export default new Vuex.Store({
 
         })
         .then(data => {
-
           commit('setUser', newUser)
         })
         .catch(error => {
@@ -103,10 +103,20 @@ export default new Vuex.Store({
 
       firebase.database().ref('/users/' + payload.uid).once('value')
       .then(user => {
+
         commit('setUser', user.val())
+        return firebase.database().ref('/posts/').once('value')
+
+      })
+      .then(data => {
+
+        const updatedPosts = convertDbPostsToLocalPosts(data)
+
+        commit('setPosts', updatedPosts)
       })
       .catch(error => {
         console.log(error)
+
       })
 
     },
@@ -143,7 +153,8 @@ export default new Vuex.Store({
 
   getters: {
     user (state) {
-      return state.user
+
+      return state.user[Object.keys(state.user)[0]]
     },
     posts(state) {
       return state.posts
