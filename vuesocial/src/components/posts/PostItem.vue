@@ -10,20 +10,26 @@
       <p>
         {{post.message}}
       </p>
-      
+
     <br>
     <br>
-    <b-button href="#" variant="primary">Go to Article</b-button>
+    <b-button
+      :to="'/post/' + postId"
+      variant="primary"
+      >
+      Go to Article
+    </b-button>
     <b-button href="#" variant="secondary">Delete Post</b-button>
   </b-card>
 </template>
 
 <script>
 export default {
-  props:['post'],
-  data () {
-    return {
-      message: 'hi'
+  props:['postId'],
+
+  computed: {
+    post() {
+      return this.$store.getters.getPostById(this.postId)
     }
   }
 }

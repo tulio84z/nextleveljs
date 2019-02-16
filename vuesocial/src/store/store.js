@@ -163,5 +163,19 @@ export default new Vuex.Store({
     posts(state) {
       return state.posts
     },
+    getPostById(state) {
+      console.log('getPostById')
+      return (postId) => {
+        if (state.posts !== null && state.posts !== undefined) {
+            return state.posts[postId]
+        }
+        return null
+
+      }
+    },
+    getPostIds(state) {
+      return Object.keys(state.posts)
+    }
+
   }
 })

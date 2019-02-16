@@ -57,8 +57,9 @@ export default new Router({
     },
     //Post routes
     {
-      path: "/post",
+      path: "/post/:id",
       name: "post",
+      props: true,
       component: Post
     },
     {
