@@ -126,6 +126,7 @@ export default new Vuex.Store({
 
       commit('setUser', null)
       commit('setPosts', null)
+      commit('setGroups', null)
     },
 
     signup({commit}, payload) {
@@ -263,6 +264,20 @@ export default new Vuex.Store({
       return userPosts
     },
 
+    getGroupByCurrUser(state, getters) {
+      console.log('getGroupByCurrUser')
+
+      const userGroups = []
+
+      getters.groups.map(function(entry) {
+        if(entry.creatorId === getters.user.id) {
+          userGroups.push(entry)
+        }
+      })
+
+
+      return userGroups
+    },
 
     posts(state) {
       return state.posts

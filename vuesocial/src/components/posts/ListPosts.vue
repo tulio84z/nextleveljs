@@ -1,6 +1,6 @@
 <template>
   <div>
-      <h1>My Posts</h1>
+      <h1>All Posts</h1>
       <b-button @click="createPost">Create Post</b-button>
       <post-item
         v-for="post in posts"
@@ -21,7 +21,7 @@ export default {
   },
   computed: {
     posts () {
-      return this.$store.getters.getPostByCurrUser
+      return this.$store.getters.posts
     }
   }
 }

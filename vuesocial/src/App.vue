@@ -8,6 +8,9 @@
         <router-link to="/" tag="span" style="cursor: pointer">
           VueSocial
         </router-link>
+        <router-link to="/user" tag="span" style="cursor: pointer" v-if="userIsAuthenticated">
+          Hello, {{user.name}}
+        </router-link>
       </b-navbar-brand>
 
       <b-collapse is-nav id="nav_collapse">
@@ -54,7 +57,10 @@
     computed: {
       userIsAuthenticated () {
         return this.$store.getters.user !== null && this.$store.getters.user !== undefined
-      }
+      },
+      user (){
+        return this.$store.getters.user
+      },
     },
     methods : {
       onLogout () {
