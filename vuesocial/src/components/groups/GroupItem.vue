@@ -14,7 +14,12 @@
       </p>
 
     <br>
-    <br>
+    <b-button
+      :to="'/group/id/' + group.id"
+      variant="primary"
+      >
+      Go to Group
+    </b-button>
 
   </b-card>
 </template>

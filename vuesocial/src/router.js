@@ -79,8 +79,9 @@ export default new Router({
     },
     //Group routes
     {
-      path: "/group",
+      path: "/group/id/:id",
       name: "group",
+      props: true,
       component: Group
     },
     {
