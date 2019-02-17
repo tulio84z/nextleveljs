@@ -35,7 +35,7 @@ new Vue({
       if (user) {
         console.log('OnAuthStateChanged')
         this.$store.dispatch('autoSignIn', user)
-        //this.$store.dispatch('fetchUserData')
+
       }
     })
   }

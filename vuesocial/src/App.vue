@@ -20,8 +20,8 @@
             </router-link>
           </b-nav-item>
           <b-nav-item>
-            <router-link to="/create-group" tag="span" style="cursor: pointer">
-              Create Group
+            <router-link to="/groups" tag="span" style="cursor: pointer">
+              Groups
             </router-link>
 
           </b-nav-item>

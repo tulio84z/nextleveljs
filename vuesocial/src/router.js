@@ -84,7 +84,7 @@ export default new Router({
       component: Group
     },
     {
-      path: "/create-group",
+      path: "/group/new",
       name: "createGroup",
       component: CreateGroup
     },

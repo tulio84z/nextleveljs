@@ -11,6 +11,7 @@ export default new Vuex.Store({
   state: {
     user: '',
     posts: [],
+    groups: []
   },
 
   mutations: {
@@ -31,7 +32,21 @@ export default new Vuex.Store({
       })
 
       state.posts = posts
-    }
+    },
+
+    setGroups(state, payload) {
+      if (payload === null) {
+        state.groups = null
+        return
+      }
+      const groups = Object.keys(payload).map(function(key) {
+
+        payload[key].id = key
+        return payload[key]
+      })
+
+      state.groups = groups
+    },
   },
   actions: {
     fetchPosts({commit}) {
@@ -48,6 +63,30 @@ export default new Vuex.Store({
 
       })
     },
+
+    fetchGroups({commit}) {
+      console.log('fetching Groups')
+      firebase.database().ref('/groups/').once('value')
+      .then(data => {
+
+        const updatedGroups = data.val()
+
+        commit('setGroups', updatedGroups)
+      })
+      .catch(error => {
+        console.log(error)
+
+      })
+    },
+
+    fetchUserData({dispatch, commit}) {
+      console.log('Fetching User Data!')
+
+      dispatch('fetchPosts')
+      dispatch('fetchGroups')
+    },
+
+
     deletePost({dispatch, commit}, payload) {
       console.log('Deleting')
       console.log(payload.id)
@@ -59,16 +98,10 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error)
         })
-        dispatch('fetchPosts')
+        dispatch('fetchUserData')
     },
 
-    fetchUserData({commit, getters}) {
-      console.log('Fetching User Data!')
-      const user = getters.user
 
-      commit('setUser', user)
-
-    },
 
     login({dispatch, commit, getters}, payload) {
       console.log('logging in')
@@ -86,7 +119,7 @@ export default new Vuex.Store({
         .catch(error => {
           console.log(error)
         })
-        dispatch('fetchPosts')
+        dispatch('fetchUserData')
     },
 
     logout({commit}, payload) {
@@ -131,9 +164,11 @@ export default new Vuex.Store({
         console.log(error)
       })
 
-      dispatch('fetchPosts')
+      dispatch('fetchUserData')
     },
     createPost({commit, getters}, payload) {
+      console.log('createPost')
+      console.log(payload)
 
       const user = getters.user
 
@@ -141,7 +176,8 @@ export default new Vuex.Store({
         message: payload.message,
         title: payload.title,
         url: payload.url,
-        creatorId: user.id
+        creatorId: user.id,
+        groupId: payload.groupId
       }
 
       firebase.database().ref('posts/').push(post)
@@ -161,9 +197,43 @@ export default new Vuex.Store({
           console.log(error)
         })
     },
+    createGroup({commit, getters}, payload) {
+
+      const user = getters.user
+
+      const group = {
+        name: payload.name,
+        description: payload.description,
+        creatorId: user.id
+      }
+
+      firebase.database().ref('groups/').push(group)
+        .then(data => {
+
+          return firebase.database().ref('/groups/').once('value')
+        })
+        .then(data => {
+
+          const updatedGroups = data.val()
+
+          commit('setGroups', updatedGroups)
+
+          router.push('/groups')
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   },
 
+
   getters: {
+
+
+    groups(state) {
+      return state.groups
+    }
+    ,
     user(state) {
 
       if (state.user !== null && state.user !== undefined){
