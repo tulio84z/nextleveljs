@@ -53,9 +53,11 @@ export default {
 
     onSubmit (evt) {
       evt.preventDefault();
+      
       this.$store.dispatch('login', {email: this.form.email, password: this.form.password})
     },
     onReset (evt) {
+      console.log('hi')
       evt.preventDefault();
       /* Reset our form values */
       this.form.email = '';

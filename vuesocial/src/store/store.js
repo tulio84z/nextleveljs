@@ -19,7 +19,18 @@ export default new Vuex.Store({
       state.user = payload
     },
     setPosts(state, payload) {
-      state.posts = payload
+
+      if (payload === null) {
+        state.posts = null
+        return
+      }
+      const posts = Object.keys(payload).map(function(key) {
+
+        payload[key].id = key
+        return payload[key]
+      })
+
+      state.posts = posts
     }
   },
   actions: {
@@ -38,6 +49,7 @@ export default new Vuex.Store({
       })
     },
     deletePost({dispatch, commit}, payload) {
+      console.log('Deleting')
       console.log(payload.id)
       firebase.database().ref('/posts').child(payload.id).remove()
         .then(data => {
@@ -135,7 +147,6 @@ export default new Vuex.Store({
       firebase.database().ref('posts/').push(post)
         .then(data => {
 
-          console.log(data)
           return firebase.database().ref('/posts/').once('value')
         })
         .then(data => {
@@ -153,7 +164,7 @@ export default new Vuex.Store({
   },
 
   getters: {
-    user (state) {
+    user(state) {
 
       if (state.user !== null && state.user !== undefined){
           return state.user[Object.keys(state.user)[0]]
@@ -161,22 +172,40 @@ export default new Vuex.Store({
       return null
 
     },
+
+    getPostByCurrUser(state, getters) {
+      console.log('getPostByCurrUser')
+
+      const userPosts = []
+
+      getters.posts.map(function(entry) {
+        if(entry.creatorId === getters.user.id) {
+          userPosts.push(entry)
+        }
+      })
+
+
+      return userPosts
+    },
+
+
     posts(state) {
       return state.posts
     },
-    getPostById(state) {
-      console.log('getPostById')
+
+    getPostById(state, getters) {
+
       return (postId) => {
-        if (state.posts !== null && state.posts !== undefined) {
-            return state.posts[postId]
+        if (getters.posts !== null && getters.posts !== undefined) {
+            return getters.posts.find(n => n.id === postId)
         }
         return null
 
       }
     },
-    getPostIds(state) {
-      if (state.posts !== null && state.posts !== undefined) {
-          return Object.keys(state.posts)
+    getPostIds(state, getters) {
+      if (getters.posts !== null && getters.posts !== undefined) {
+          return getters.posts.map(function(entry) {return entry.id})
       }
       return null
     }
