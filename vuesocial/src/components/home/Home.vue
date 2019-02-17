@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Share your technical articles</h1>
+    <h1>All recent Posts</h1>
 
     <post-item
       v-for="post in posts"

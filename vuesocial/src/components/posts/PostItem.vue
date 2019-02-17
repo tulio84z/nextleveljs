@@ -10,6 +10,9 @@
       <p>
         {{post.message}}
       </p>
+      <p v-if="hasGroupId">
+        {{group.name}}
+      </p>
       <img src="post.url" alt="">
     <br>
     <br>
@@ -37,6 +40,13 @@ export default {
 
     isOwner() {
       return this.$store.getters.user.id === this.post.creatorId
+    },
+    hasGroupId() {
+      return this.post.groupId
+    },
+
+    group() {
+      return this.$store.getters.getGroupById(this.post.groupId)
     }
   }
 }

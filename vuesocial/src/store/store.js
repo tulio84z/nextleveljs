@@ -232,8 +232,13 @@ export default new Vuex.Store({
 
     groups(state) {
       return state.groups
-    }
-    ,
+    },
+
+    getGroupById(state, getters) {
+      return (groupId) => {
+        return getters.groups.find(n => n.id === groupId)
+      }
+    },
     user(state) {
 
       if (state.user !== null && state.user !== undefined){
