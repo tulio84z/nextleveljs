@@ -15,7 +15,7 @@
     <br>
 
     <b-button
-      :to="'/post/' + postId"
+      :to="'/post/id/' + postId"
       variant="primary"
       >
       Go to Article

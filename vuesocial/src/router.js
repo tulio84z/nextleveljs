@@ -57,13 +57,13 @@ export default new Router({
     },
     //Post routes
     {
-      path: "/post/:id",
+      path: "/post/id/:id",
       name: "post",
       props: true,
       component: Post
     },
     {
-      path: "/create-post",
+      path: "/post/new",
       name: "createPost",
       component: CreatePost
     },
