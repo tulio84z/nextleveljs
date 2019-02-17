@@ -15,14 +15,14 @@
     <br>
 
     <b-button
-      :to="'/post/id/' + postId"
+      :to="'/post/id/' + post.id"
       variant="primary"
       >
       Go to Article
     </b-button>
     <delete-post-item-dialog
       v-if="isOwner"
-      v-bind:postId="postId"
+      v-bind:post="post"
 
     >
     </delete-post-item-dialog>
@@ -31,14 +31,12 @@
 
 <script>
 export default {
-  props:['postId'],
+  props:['post'],
 
   computed: {
-    post() {
-      return this.$store.getters.getPostById(this.postId)
-    },
+
     isOwner() {
-      return this.$store.getters.user.id === this.$store.getters.getPostById(this.postId).creatorId
+      return this.$store.getters.user.id === this.post.creatorId
     }
   }
 }

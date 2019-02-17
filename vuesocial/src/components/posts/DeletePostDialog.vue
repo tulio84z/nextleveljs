@@ -15,7 +15,7 @@
 
 <script>
   export default {
-    props: ['postId'],
+    props: ['post'],
     methods: {
       showModal() {
         this.$refs.myModalRef.show()
@@ -25,7 +25,7 @@
       },
       deletePost() {
 
-        this.$store.dispatch('deletePost', {id: this.postId})
+        this.$store.dispatch('deletePost', {id: this.post.id})
         this.$refs.myModalRef.hide()
       }
     }

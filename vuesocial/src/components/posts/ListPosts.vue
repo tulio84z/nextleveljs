@@ -1,7 +1,14 @@
 <template>
   <div>
-      <h1>List Post Page</h1>
+      <h1>My Posts</h1>
       <b-button @click="createPost">Create Post</b-button>
+      <!-- <post-item
+        v-for="post in posts"
+        v-bind:postId="postid"
+        :key="postid"
+        >
+
+      </post-item> -->
   </div>
 </template>
 
@@ -10,6 +17,11 @@ export default {
   methods: {
     createPost () {
       this.$router.push('/post/new')
+    }
+  },
+  computed: {
+    posts () {
+      return this.$store.getters.getPostByCurrUser
     }
   }
 }

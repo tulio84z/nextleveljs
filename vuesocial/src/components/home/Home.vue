@@ -3,9 +3,9 @@
     <h1>Share your technical articles</h1>
 
     <post-item
-      v-for="postid in postIds"
-      v-bind:postId="postid"
-      :key="postid"
+      v-for="post in posts"
+      v-bind:post="post"
+      :key="post.id"
       >
 
     </post-item>
@@ -17,8 +17,8 @@
 export default {
 
   computed:{
-    postIds () {
-      return this.$store.getters.getPostIds
+    posts () {
+      return this.$store.getters.posts
 
     }
   },
