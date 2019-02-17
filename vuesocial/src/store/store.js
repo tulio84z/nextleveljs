@@ -11,7 +11,8 @@ export default new Vuex.Store({
   state: {
     user: '',
     posts: [],
-    groups: []
+    groups: [],
+    joinedGroups: []
   },
 
   mutations: {
@@ -47,8 +48,59 @@ export default new Vuex.Store({
 
       state.groups = groups
     },
+    joinGroup(state, payload) {
+      if(state.joinedGroups.indexOf(payload.groupId) === -1){
+        state.joinedGroups.push(payload.groupId)
+      }
+    },
+
+    leaveGroup(state, payload) {
+      const newJoinedGroups = []
+      state.joinedGroups.map(function(entry) {
+        if (entry !== payload.groupId){
+          newJoinedGroups.push(entry)
+        }
+      })
+      state.joinedGroups = newJoinedGroups
+    },
   },
+
+
   actions: {
+    joinGroup({commit, getters}, payload){
+      console.log('joinGroup')
+
+      if(getters.joinedGroups.indexOf(payload.groupId)!== -1){
+        return
+      }
+
+      const user = getters.user
+
+      firebase.database().ref('users/' + user.id + '/groupsJoined/' + payload.groupId).push(payload)
+        .then(data => {
+
+          commit('joinGroup', {groupId: payload.groupId, userId: user.id})
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
+    },
+    leaveGroup({commit, getters}, payload){
+      console.log('leaveGroup')
+      console.log(payload.groupId)
+      const user = getters.user
+
+      firebase.database().ref('users/' + user.id + '/groupsJoined/').child(payload.groupId).remove()
+        .then(data => {
+          console.log('sucessfully left group')
+          commit('leaveGroup', {groupId: payload.groupId})
+        })
+        .catch(error => {
+          console.log(error)
+        })
+
+    },
     fetchPosts({commit}) {
       console.log('fetching Post')
       firebase.database().ref('/posts/').once('value')
@@ -229,7 +281,9 @@ export default new Vuex.Store({
 
 
   getters: {
-
+    joinedGroups(state) {
+      return state.joinedGroups
+    },
 
     groups(state) {
       return state.groups

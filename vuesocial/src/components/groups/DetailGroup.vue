@@ -3,10 +3,12 @@
     <h1>Detail Group Page</h1>
     <h2>{{group.name}}</h2>
     <h6>{{group.description}}</h6>
-    <b-button
-      >
-      Join Group
-    </b-button>
+    <join-group-dialog
+      v-bind:group="group"
+
+    >
+    </join-group-dialog>
+
   </div>
 
 </template>
