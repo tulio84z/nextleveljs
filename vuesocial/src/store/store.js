@@ -17,8 +17,13 @@ export default new Vuex.Store({
 
   mutations: {
     setUser(state, payload) {
-
+      console.log('setting User')
+      console.log(payload.groupsJoined)
       state.user = payload
+
+      if(payload.groupsJoined !== undefined) {
+        state.joinedGroups = Object.keys(payload.groupsJoined)
+      }
     },
     setPosts(state, payload) {
 
