@@ -18,10 +18,13 @@ export default new Vuex.Store({
   mutations: {
     setUser(state, payload) {
       console.log('setting User')
-      console.log(payload.groupsJoined)
       state.user = payload
+      if (payload === null){
+        state.joinedGroups = []
+        return
+      }
 
-      if(payload.groupsJoined !== undefined) {
+      if(typeof payload.groupsJoined !== "undefined") {
         state.joinedGroups = Object.keys(payload.groupsJoined)
       }
     },
@@ -184,6 +187,7 @@ export default new Vuex.Store({
       commit('setUser', null)
       commit('setPosts', null)
       commit('setGroups', null)
+      router.push('/')
     },
 
     signup({commit}, payload) {
@@ -310,7 +314,9 @@ export default new Vuex.Store({
 
     getPostByCurrUser(state, getters) {
       console.log('getPostByCurrUser')
-
+      if(getters.user === null){
+        return
+      }
       const userPosts = []
 
       getters.posts.map(function(entry) {
@@ -325,7 +331,9 @@ export default new Vuex.Store({
 
     getGroupByCurrUser(state, getters) {
       console.log('getGroupByCurrUser')
-
+      if(getters.user === null){
+        return
+      }
       const userGroups = []
 
       getters.groups.map(function(entry) {

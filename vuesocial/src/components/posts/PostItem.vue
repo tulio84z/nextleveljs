@@ -4,9 +4,7 @@
     :title=post.title
     :img-src="post.url"
     img-top
-    tag="article"
-    style="max-width: 20rem;"
-    class="mb-2">
+  >
       <p>
         {{post.message}}
       </p>
@@ -39,7 +37,9 @@ export default {
   computed: {
 
     isOwner() {
-      return this.$store.getters.user.id === this.post.creatorId
+      if (this.$store.getters.user){
+        return this.$store.getters.user.id === this.post.creatorId
+      }
     },
     hasGroup() {
       return this.post.groupId !== null && this.post.groupId !== undefined

@@ -3,9 +3,7 @@
     v-if="group !== null"
     :title=group.title
     img-top
-    tag="article"
-    style="max-width: 20rem;"
-    class="mb-2">
+  >
       <p>
         {{group.name}}
       </p>

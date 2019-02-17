@@ -11,6 +11,7 @@ import PostItem from '@/components/posts/PostItem.vue'
 import GroupItem from '@/components/groups/GroupItem.vue'
 import DeletePostDialog from "@/components/posts/DeletePostDialog.vue"
 import JoinGroupDialog from '@/components/groups/JoinGroupDialog.vue'
+import MainBackground from '@/components/Background.vue'
 
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
@@ -19,6 +20,7 @@ Vue.component('post-item', PostItem)
 Vue.component('group-item', GroupItem)
 Vue.component('delete-post-item-dialog', DeletePostDialog)
 Vue.component('join-group-dialog', JoinGroupDialog)
+Vue.component('main-background', MainBackground)
 
 new Vue({
   router,

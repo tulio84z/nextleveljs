@@ -1,5 +1,7 @@
 <template>
+
   <div id="app">
+
     <b-navbar toggleable="md" type="dark" variant="info">
 
       <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
@@ -49,8 +51,11 @@
     </b-navbar>
 
     <router-view></router-view>
+    <!-- <main-background></main-background> -->
   </div>
+
 </template>
+
 <script>
   export default {
 
@@ -66,6 +71,6 @@
       onLogout () {
         this.$store.dispatch('logout')
       }
-    }
+    },
   }
 </script>

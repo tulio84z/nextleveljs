@@ -1,6 +1,7 @@
 <template>
   <div>
-      <h1>All Posts</h1>
+    <span>All Posts</span>
+      <br>
       <b-button @click="createPost">Create Post</b-button>
       <post-item
         v-for="post in posts"
