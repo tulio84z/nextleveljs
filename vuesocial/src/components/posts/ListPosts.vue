@@ -2,13 +2,13 @@
   <div>
       <h1>My Posts</h1>
       <b-button @click="createPost">Create Post</b-button>
-      <!-- <post-item
+      <post-item
         v-for="post in posts"
-        v-bind:postId="postid"
-        :key="postid"
+        v-bind:post="post"
+        :key="post.id"
         >
 
-      </post-item> -->
+      </post-item>
   </div>
 </template>
 
