@@ -4,7 +4,8 @@
 
     <b-navbar toggleable="md" type="dark" variant="info">
 
-      <b-navbar-toggle target="nav_collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav_collapse">
+      </b-navbar-toggle>
 
       <b-navbar-brand>
         <router-link to="/" tag="span" style="cursor: pointer">
@@ -49,9 +50,11 @@
 
       </b-collapse>
     </b-navbar>
+    <b-container>
+      <router-view></router-view>
+      <!-- <main-background></main-background> -->
+    </b-container>
 
-    <router-view></router-view>
-    <!-- <main-background></main-background> -->
   </div>
 
 </template>
