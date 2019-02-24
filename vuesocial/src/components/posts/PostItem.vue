@@ -6,7 +6,7 @@
   >
 
     <b-row>
-      <b-col md="8">
+      <b-col md="8" style="padding-left: 0px;">
 
         <b-card-text class="post-item-title">
           {{post.title}}

@@ -50,7 +50,7 @@
 
       </b-collapse>
     </b-navbar>
-    <b-container>
+    <b-container style="margin-top: 40px;">
       <router-view></router-view>
       <!-- <main-background></main-background> -->
     </b-container>

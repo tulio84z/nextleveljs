@@ -27,6 +27,7 @@
 
         this.$store.dispatch('deletePost', {id: this.post.id})
         this.$refs.myModalRef.hide()
+        this.$router.push('/user')
       }
     }
   }
