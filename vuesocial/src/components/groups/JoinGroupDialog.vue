@@ -1,7 +1,7 @@
 <template>
   <div>
-    <b-button @click="showModal" v-if="notJoined">Join Group</b-button>
-    <b-button @click="showModal" v-else>Leave Group</b-button>
+    <b-button variant="info" @click="showModal" v-if="notJoined">Join Group</b-button>
+    <b-button variant="info" @click="showModal" v-else>Leave Group</b-button>
     <b-modal ref="myModalRef" hide-footer title="Using Component Methods">
       <div class="d-block text-center">
         <h3>Are you sure you wish to join this group?</h3>

@@ -2,7 +2,7 @@
   <div>
     <span>All Posts</span>
       <br>
-      <b-button @click="createPost">Create Post</b-button>
+      <b-button variant="info" @click="createPost">Create Post</b-button>
       <post-item
         v-for="post in posts"
         v-bind:post="post"

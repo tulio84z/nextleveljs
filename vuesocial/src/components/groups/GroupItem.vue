@@ -14,7 +14,7 @@
     <br>
     <b-button
       :to="'/group/id/' + group.id"
-      variant="primary"
+      variant="info"
       >
       Go to Group
     </b-button>

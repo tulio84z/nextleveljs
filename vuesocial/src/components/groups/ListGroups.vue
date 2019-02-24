@@ -9,7 +9,7 @@
         >
 
       </group-item>
-      <b-button @click="createGroup">Create Group</b-button>
+      <b-button variant="info" @click="createGroup">Create Group</b-button>
   </div>
 
 </template>
