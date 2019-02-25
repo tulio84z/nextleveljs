@@ -8,11 +8,10 @@ import groups from '@/store/groups'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+export const store = new Vuex.Store({
   modules: {
     user: user,
     posts: posts,
     groups: groups
   }
-
 })

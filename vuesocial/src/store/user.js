@@ -107,8 +107,8 @@ export default {
         })
         .then(user => {
 
-          commit('setUser', user.val())
           dispatch('fetchUserData', userId)
+          commit('setUser', user.val())
         })
         .catch(error => {
           console.log(error)
