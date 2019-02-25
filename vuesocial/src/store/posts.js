@@ -119,7 +119,23 @@ export default {
         console.log(err)
 
       }
+    },
+    getPostsByGroupId(state, getters) {
+      return (groupId) => {
+        try{
+          const groupPosts = []
 
+          getters.posts.map(function(entry){
+              if(entry.groupId === groupId){
+                groupPosts.push(entry)
+              }
+          })
+          return groupPosts
+
+        }catch(err){
+          console.log(err)
+        }
+      }
     },
   }
 }
