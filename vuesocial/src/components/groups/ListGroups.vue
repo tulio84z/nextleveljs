@@ -2,6 +2,7 @@
   <div>
       <h1>Groups</h1>
       <h6>Welcome to the Group Page! Select a Group that interests you!</h6>
+      <b-button variant="info" @click="createGroup">Create Group</b-button>
       <group-item
         v-for="group in groups"
         v-bind:group="group"
@@ -9,7 +10,7 @@
         >
 
       </group-item>
-      <b-button variant="info" @click="createGroup">Create Group</b-button>
+
   </div>
 
 </template>
