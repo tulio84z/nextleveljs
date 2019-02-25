@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <h1>Create Post Page</h1>
+    <h1>Create Post</h1>
     <b-form @submit="onSubmit" v-if="show">
       <b-form-input
           id="exampleInput2"
@@ -71,7 +71,6 @@ export default {
   methods: {
     onSubmit (evt) {
       evt.preventDefault();
-      //alert(JSON.stringify(this.form));
       this.$store.dispatch('createPost', {title: this.form.title, url: this.form.url, message: this.form.message, groupId: this.form.groupId})
     },
     onCancel () {

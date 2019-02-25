@@ -14,7 +14,7 @@
       <span>{{post.message}}</span>
     </div>
     <br>
-    <span>
+    <p>
       <delete-post-item-dialog
         v-if="isOwner"
         v-bind:post="post"
@@ -26,7 +26,7 @@
         v-bind:post="post"
       >
       </edit-post-item-dialog>
-    </span>
+    </p>
 
 
     <br>
