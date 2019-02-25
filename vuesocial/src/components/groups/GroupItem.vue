@@ -2,13 +2,15 @@
   <b-card
     class="group-item-card"
     v-if="group !== null"
-    :title=group.title
-    @click=showGroup
+    :title="group.title"
+    @click="showGroup"
   >
     <b-row>
       <b-col md="12" style="padding-left: 0px;">
 
-        <b-card-text class="group-item-title">
+        <b-card-text
+          class="group-item-title"
+        >
           {{group.name}}
         </b-card-text>
         <br>

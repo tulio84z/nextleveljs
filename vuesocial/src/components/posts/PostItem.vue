@@ -2,19 +2,19 @@
   <b-card
     v-if="post !== null"
     class="post-item-card"
-
   >
-
     <b-row>
       <b-col md="8" style="padding-left: 0px;">
 
-        <b-card-text class="post-item-title">
+        <b-card-text
+          class="post-item-title"
+        >
           {{post.title}}
         </b-card-text>
         <br>
         <b-card-text
           class="post-item-message"
-          @click=showArticle
+          @click="showArticle"
         >
           {{getPreviewOfMessage}}
         </b-card-text>
@@ -29,7 +29,6 @@
           >
             {{group.name}}
           </b-link>
-
         </b-card-text>
       </b-col>
       <b-col md="4">
@@ -39,8 +38,6 @@
         />
       </b-col>
     </b-row>
-
-
   </b-card>
 
 </template>

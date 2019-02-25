@@ -72,7 +72,7 @@ export default {
         .then(data => {
 
           dispatch('increaseUserCount', payload.groupId)
-          dispatch('fetchGroupsJoined', user.id)
+          dispatch('fetchUserData', user.id)
         })
         .catch(error => {
           console.log(error)
@@ -88,7 +88,7 @@ export default {
         .then(data => {
           console.log('sucessfully left group')
           dispatch('decreaseUserCount', payload.groupId)
-          dispatch('fetchGroupsJoined', user.id)
+          dispatch('fetchUserData', user.id)
         })
         .catch(error => {
           console.log(error)
