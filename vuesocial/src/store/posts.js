@@ -102,20 +102,24 @@ export default {
       return null
     },
     getPostByCurrUser(state, getters) {
-      console.log('getPostByCurrUser')
-      if(getters.user === null){
-        return
-      }
-      const userPosts = []
-
-      getters.posts.map(function(entry) {
-        if(entry.creatorId === getters.user.id) {
-          userPosts.push(entry)
+      try{
+        if(getters.user === null){
+          return
         }
-      })
+        const userPosts = []
 
+        getters.posts.map(function(entry) {
+          if(entry.creatorId === getters.user.id) {
+            userPosts.push(entry)
+          }
+        })
 
-      return userPosts
+        return userPosts
+      }catch(err){
+        console.log(err)
+
+      }
+
     },
   }
 }

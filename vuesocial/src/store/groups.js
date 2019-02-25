@@ -4,7 +4,7 @@ import router from '@/router'
 export default {
   state: {
     groups: [],
-    joinedGroups: []
+    // joinedGroups: []
   },
   mutations: {
     setGroups(state, payload) {
@@ -20,21 +20,7 @@ export default {
 
       state.groups = groups
     },
-    joinGroup(state, payload) {
-      if(state.joinedGroups.indexOf(payload.groupId) === -1){
-        state.joinedGroups.push(payload.groupId)
-      }
-    },
-
-    leaveGroup(state, payload) {
-      const newJoinedGroups = []
-      state.joinedGroups.map(function(entry) {
-        if (entry !== payload.groupId){
-          newJoinedGroups.push(entry)
-        }
-      })
-      state.joinedGroups = newJoinedGroups
-    },
+    
   },
   actions: {
     fetchGroups({commit}) {
@@ -58,7 +44,8 @@ export default {
       const group = {
         name: payload.name,
         description: payload.description,
-        creatorId: user.id
+        creatorId: user.id,
+        usersJoined: 0
       }
 
       firebase.database().ref('groups/').push(group)
@@ -78,45 +65,61 @@ export default {
           console.log(error)
         })
     },
-    joinGroup({commit, getters}, payload){
-      console.log('joinGroup')
 
-      if(getters.joinedGroups.indexOf(payload.groupId)!== -1){
-        return
-      }
+    updateGroup({commit, getters}, payload) {
+      console.log("Updating Group")
+      const updateObj = {}
 
-      const user = getters.user
-
-      firebase.database().ref('users/' + user.id + '/groupsJoined/' + payload.groupId).push(payload)
+      firebase.database().ref('groups/').child(payload.id).once('value')
         .then(data => {
+          console.log("Group Updated Successfully")
 
-          commit('joinGroup', {groupId: payload.groupId, userId: user.id})
+          const dbGroup = data.val()
+          console.log(dbGroup)
+
         })
         .catch(error => {
           console.log(error)
         })
 
     },
-    leaveGroup({commit, getters}, payload){
-      console.log('leaveGroup')
-      console.log(payload.groupId)
-      const user = getters.user
-
-      firebase.database().ref('users/' + user.id + '/groupsJoined/').child(payload.groupId).remove()
+    increaseUserCount({commit, getters}, groupId) {
+      console.log("increaseUserCount")
+      firebase.database().ref('groups/').child(groupId).once('value')
         .then(data => {
-          console.log('sucessfully left group')
-          commit('leaveGroup', {groupId: payload.groupId})
+          const dbGroup = data.val()
+          dbGroup.usersJoined++
+
+          return firebase.database().ref('groups/').child(groupId).update(dbGroup)
+
+        })
+        .then(data => {
+          console.log('#usersJoined increased successfully')
         })
         .catch(error => {
           console.log(error)
         })
-
     },
+    decreaseUserCount({commit, getters}, groupId) {
+      console.log("decreaseUserCount")
+      firebase.database().ref('groups/').child(groupId).once('value')
+        .then(data => {
+          const dbGroup = data.val()
+          dbGroup.usersJoined--
+          if (dbGroup.usersJoined < 0) {
+            dbGroup.usersJoined = 0
+          }
+
+          return firebase.database().ref('groups/').child(groupId).update(dbGroup)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    },
+
+
   },
   getters: {
-    joinedGroups(state) {
-      return state.joinedGroups
-    },
 
     groups(state) {
       return state.groups
@@ -143,17 +146,31 @@ export default {
     },
     getPostsInGroup(state, getters) {
       console.log('getPostsInGroup')
+      try{
+        return (groupId) => {
 
-      return (groupId) => {
+          var count = 0
+          const posts = getters.posts
 
-        var count = 0
-        const posts = getters.posts
-        for (var i = 0; i < posts.length; i++){
-            if (posts[i].groupId === groupId){
-              count++
-            }
+          for (var i = 0; i < posts.length; i++){
+              if (posts[i].groupId === groupId){
+                count++
+              }
+          }
+          return count
         }
-        return count
+      }catch(err){
+        console.log(err)
+      }
+      return 0
+
+    },
+    getUsersJoinedQtdInGroup(state, getters) {
+      return (groupId) => {
+        if (getters.getGroupById(groupId).usersJoined === undefined) {
+          return 0
+        }
+        return getters.getGroupById(groupId).usersJoined
       }
     },
   }

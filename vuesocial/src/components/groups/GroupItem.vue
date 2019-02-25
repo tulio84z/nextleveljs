@@ -21,7 +21,8 @@
         <b-card-text
         >
           <span class="group-item-posts">Posts: {{postsInGroup}}</span>
-
+          <br>
+          <span class="group-item-users">Users: {{usersInGroup}}</span>
 
         </b-card-text>
       </b-col>
@@ -36,6 +37,9 @@ export default {
   computed: {
     postsInGroup (){
       return this.$store.getters.getPostsInGroup(this.group.id)
+    },
+    usersInGroup(){
+      return this.$store.getters.getUsersJoinedQtdInGroup(this.group.id)
     }
   },
   methods: {
@@ -56,6 +60,9 @@ export default {
     color: grey;
   }
   .group-item-posts {
+    font-size: 15px;
+  }
+  .group-item-users {
     font-size: 15px;
   }
   .group-item-published-group-link{
