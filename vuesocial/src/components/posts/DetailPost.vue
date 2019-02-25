@@ -1,14 +1,36 @@
 <template>
   <div class="">
-    <h1>Detail Post Page</h1>
-    {{post.message}}
-    <br>
-    <delete-post-item-dialog
-      v-if="isOwner"
-      v-bind:post="post"
-
+    <b-card
+      overlay
+      :title="post.title"
+      :img-src="post.url"
+      img-alt="Image"
+      img-top
+      tag="article"
+      text-variant="white"
     >
-    </delete-post-item-dialog>
+    </b-card>
+    <div class="article-detail-card">
+      <span>{{post.message}}</span>
+    </div>
+    <br>
+    <span>
+      <delete-post-item-dialog
+        v-if="isOwner"
+        v-bind:post="post"
+
+      >
+      </delete-post-item-dialog>
+      <edit-post-item-dialog
+        v-if="isOwner"
+        v-bind:post="post"
+      >
+      </edit-post-item-dialog>
+    </span>
+
+
+    <br>
+
   </div>
 
 </template>
@@ -31,5 +53,10 @@ export default {
 }
 </script>
 
-<style lang="css" scoped>
+<style>
+  .article-detail-card{
+    border: solid;
+    border-width: 1px;
+    border-color: gainsboro;
+  }
 </style>

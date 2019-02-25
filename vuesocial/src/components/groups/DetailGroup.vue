@@ -9,7 +9,6 @@
     </join-group-dialog>
 
     <div v-if="posts">
-      <br>
       <hr>
       <h3>Posts in This Group:</h3>
       <post-item

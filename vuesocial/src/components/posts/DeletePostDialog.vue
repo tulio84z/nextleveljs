@@ -1,7 +1,7 @@
 <template>
   <span>
 
-    <b-button @click="showModal">Delete Post</b-button>
+    <b-button @click="showModal" variant="danger">Delete Post</b-button>
 
     <b-modal ref="myModalRef" hide-footer title="Using Component Methods">
       <div class="d-block text-center">
