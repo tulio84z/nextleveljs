@@ -73,13 +73,36 @@ export default {
           const updatedPosts = data.val()
 
           commit('setPosts', updatedPosts)
-
-          router.push('/')
         })
         .catch(error => {
           console.log(error)
         })
     },
+    updatePost({commit, getters}, payload){
+      console.log('updatePost')
+      console.log(payload)
+
+      const updateObj = {
+        message: payload.message,
+        title: payload.title,
+        url: payload.url,
+        groupId: payload.groupId
+      }
+
+      firebase.database().ref('posts/').child(payload.id).update(updateObj)
+        .then(data => {
+          console.log("Post Updated Sucessfully")
+          return firebase.database().ref('/posts/').once('value')
+
+        })
+        .then(data => {
+          const updatedPosts = data.val()
+          commit('setPosts', updatedPosts)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+    }
   },
   getters: {
     posts(state) {

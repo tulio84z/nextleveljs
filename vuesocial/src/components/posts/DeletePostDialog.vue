@@ -3,9 +3,9 @@
 
     <b-button @click="showModal" variant="danger">Delete Post</b-button>
 
-    <b-modal ref="myModalRef" hide-footer title="Using Component Methods">
+    <b-modal ref="myModalRef" hide-footer title="Want to delete Post?">
       <div class="d-block text-center">
-        <h3>Hello From My Modal!</h3>
+        <h3>Are you sure ?</h3>
       </div>
       <b-button class="mt-3" variant="outline-danger" block @click="deletePost">Delete</b-button>
       <b-button class="mt-3" variant="outline-danger" block @click="dismissModal">Cancel</b-button>

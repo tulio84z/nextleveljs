@@ -21,11 +21,15 @@
 
       >
       </delete-post-item-dialog>
-      <edit-post-item-dialog
+
+      <b-button
         v-if="isOwner"
-        v-bind:post="post"
+        variant="warning"
+        @click="edit"
       >
-      </edit-post-item-dialog>
+        Edit Post
+      </b-button>
+
     </p>
 
 
@@ -49,6 +53,11 @@ export default {
         return this.$store.getters.user.id === this.post.creatorId
       }
     },
+  },
+  methods: {
+    edit() {
+      this.$router.push('/post/update/' + this.post.id)
+    }
   }
 }
 </script>

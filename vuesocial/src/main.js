@@ -10,7 +10,7 @@ import firebase from 'firebase';
 import PostItem from '@/components/posts/PostItem.vue'
 import GroupItem from '@/components/groups/GroupItem.vue'
 import DeletePostDialog from "@/components/posts/DeletePostDialog.vue"
-import EditPostDialog from "@/components/posts/EditPostDialog.vue"
+import PostForm from "@/components/posts/PostForm.vue"
 import JoinGroupDialog from '@/components/groups/JoinGroupDialog.vue'
 import MainBackground from '@/components/Background.vue'
 
@@ -20,8 +20,8 @@ Vue.config.productionTip = false
 Vue.component('post-item', PostItem)
 Vue.component('group-item', GroupItem)
 Vue.component('delete-post-item-dialog', DeletePostDialog)
-Vue.component('edit-post-item-dialog', EditPostDialog)
 Vue.component('join-group-dialog', JoinGroupDialog)
+Vue.component('my-post-form', PostForm)
 
 Vue.component('main-background', MainBackground)
 

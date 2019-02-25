@@ -73,8 +73,9 @@ export default new Router({
       component: ListPosts
     },
     {
-      path: "/update-post",
+      path: "/post/update/:id",
       name: "updatePost",
+      props: true,
       component: UpdatePost
     },
     //Group routes
