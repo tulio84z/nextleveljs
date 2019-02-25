@@ -128,7 +128,7 @@ export default {
       }
     },
     getGroupByCurrUser(state, getters) {
-      console.log('getGroupByCurrUser')
+
       if(getters.user === null){
         return
       }
@@ -140,6 +140,21 @@ export default {
         }
       })
       return userGroups
+    },
+    getPostsInGroup(state, getters) {
+      console.log('getPostsInGroup')
+
+      return (groupId) => {
+
+        var count = 0
+        const posts = getters.posts
+        for (var i = 0; i < posts.length; i++){
+            if (posts[i].groupId === groupId){
+              count++
+            }
+        }
+        return count
+      }
     },
   }
 }

@@ -18,6 +18,12 @@
           {{group.description}}
         </b-card-text>
         <br>
+        <b-card-text
+        >
+          <span class="group-item-posts">Posts: {{postsInGroup}}</span>
+
+
+        </b-card-text>
       </b-col>
     </b-row>
     <br>
@@ -27,6 +33,11 @@
 <script>
 export default {
   props:['group'],
+  computed: {
+    postsInGroup (){
+      return this.$store.getters.getPostsInGroup(this.group.id)
+    }
+  },
   methods: {
     showGroup() {
       this.$router.push('/group/id/' + this.group.id)
@@ -44,7 +55,7 @@ export default {
     font-size: 15px;
     color: grey;
   }
-  .group-item-published-text {
+  .group-item-posts {
     font-size: 15px;
   }
   .group-item-published-group-link{
