@@ -22,10 +22,15 @@
         <br>
         <b-card-text
         >
-          <span class="group-item-posts">Posts: {{postsInGroup}}</span>
-          <br>
-          <span class="group-item-users">Users: {{usersInGroup}}</span>
+          <span class="group-item-posts">Posts:
 
+            <b-badge pill variant="dark">{{postsInGroup}}</b-badge>
+
+          </span>
+          <br>
+          <span class="group-item-users">Users:
+            <b-badge pill variant="dark">{{usersInGroup}}</b-badge>
+          </span>
         </b-card-text>
       </b-col>
     </b-row>
