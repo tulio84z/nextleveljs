@@ -7,7 +7,21 @@
 
     >
     </join-group-dialog>
-
+    <div v-if="isOwner">
+      <delete-group-dialog
+        v-if="isOwner"
+        v-bind:group="group"
+        id='myModal'
+      >
+      </delete-group-dialog>
+      <b-button 
+        v-b-modal.myModal
+        variant="danger"
+      
+      >Delete Group
+      </b-button>
+    </div>
+    
     <div v-if="posts">
       <hr>
       <h3>Posts in This Group:</h3>
@@ -27,6 +41,7 @@
 <script>
 export default {
   props: ['id'],
+
   computed: {
     user() {
       return this.$store.getters.user
@@ -36,7 +51,12 @@ export default {
     },
     posts() {
       return this.$store.getters.getPostsByGroupId(this.id)
-    }
+    },
+    isOwner() {
+      if (this.$store.getters.user){
+        return this.$store.getters.user.id === this.group.creatorId
+      }
+    },
   },
 }
 </script>

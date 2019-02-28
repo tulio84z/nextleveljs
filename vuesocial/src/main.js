@@ -12,6 +12,7 @@ import GroupItem from '@/components/groups/GroupItem.vue'
 import DeletePostDialog from "@/components/posts/DeletePostDialog.vue"
 import PostForm from "@/components/posts/PostForm.vue"
 import JoinGroupDialog from '@/components/groups/JoinGroupDialog.vue'
+import DeleteGroupDialog from '@/components/groups/DeleteGroupDialog.vue'
 import MainBackground from '@/components/Background.vue'
 
 Vue.use(BootstrapVue)
@@ -21,6 +22,7 @@ Vue.component('post-item', PostItem)
 Vue.component('group-item', GroupItem)
 Vue.component('delete-post-item-dialog', DeletePostDialog)
 Vue.component('join-group-dialog', JoinGroupDialog)
+Vue.component('delete-group-dialog', DeleteGroupDialog)
 Vue.component('my-post-form', PostForm)
 
 Vue.component('main-background', MainBackground)

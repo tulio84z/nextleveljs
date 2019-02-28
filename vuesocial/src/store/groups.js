@@ -35,8 +35,6 @@ export default {
           console.log('Error while trying to remove group:' + error)
         })
 
-
-
     },
 
 
