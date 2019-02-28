@@ -1,9 +1,12 @@
 <template>
   <span>
 
-    <b-button @click="showModal" variant="danger">Delete Post</b-button>
-
-    <b-modal ref="myModalRef" hide-footer title="Want to delete Post?">
+    <b-modal 
+      :id="id"
+      ref="myModal"
+      hide-footer 
+      title="Want to delete Post?"
+    >
       <div class="d-block text-center">
         <h3>Are you sure ?</h3>
       </div>
@@ -15,18 +18,16 @@
 
 <script>
   export default {
-    props: ['post'],
+    props: ['post','id'],
     methods: {
-      showModal() {
-        this.$refs.myModalRef.show()
-      },
       dismissModal() {
-        this.$refs.myModalRef.hide()
+
+        this.$refs.myModal.hide()
       },
       deletePost() {
 
         this.$store.dispatch('deletePost', {id: this.post.id})
-        this.$refs.myModalRef.hide()
+        this.$refs.myModal.hide()
         this.$router.push('/user')
       }
     }

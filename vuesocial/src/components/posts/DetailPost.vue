@@ -18,10 +18,15 @@
       <delete-post-item-dialog
         v-if="isOwner"
         v-bind:post="post"
-
+        id='myModal'
       >
       </delete-post-item-dialog>
-
+      <b-button 
+        v-b-modal.myModal
+        variant="danger"
+        
+      >Delete Post
+      </b-button>
       <b-button
         v-if="isOwner"
         variant="warning"
@@ -42,7 +47,11 @@
 <script>
 export default {
   props: ['id'],
-
+  data() {
+    return {
+      show: false
+    }
+  },
   computed: {
     post() {
 
@@ -57,7 +66,10 @@ export default {
   methods: {
     edit() {
       this.$router.push('/post/update/' + this.post.id)
-    }
+    },
+    showModal() {
+      this.show = true
+    },
   }
 }
 </script>
