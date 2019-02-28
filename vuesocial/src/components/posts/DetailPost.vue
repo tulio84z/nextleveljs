@@ -14,6 +14,9 @@
       <span>{{post.message}}</span>
     </div>
     <br>
+    <div
+      v-if="isOwner"
+    >
     <p>
       <delete-post-item-dialog
         v-if="isOwner"
@@ -39,6 +42,8 @@
 
 
     <br>
+    </div>
+
 
   </div>
 
