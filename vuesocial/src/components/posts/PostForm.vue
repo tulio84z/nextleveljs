@@ -78,12 +78,12 @@ export default {
     onSubmit (evt) {
 
       evt.preventDefault();
-      
+
       const payload = {
         title: this.form.title,
         url: this.form.url,
         message: this.form.message,
-        groupId: this.form.groupId
+        groupId: this.form.groupId,
       }
 
       var action = 'createPost'

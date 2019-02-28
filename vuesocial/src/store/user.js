@@ -159,15 +159,49 @@ export default {
       })
 
     },
+    getPostCreator({dispatch}, payload) {
+      console.log('getPostCreator')
+      
+      var emptyUserString = 'empty' 
+      if(!payload){
+        return emptyUserString
+      }
+      
+      
+      return firebase.database().ref('/users/' + payload.creatorId).once('value')
+        .then(data => {
+          console.log(data.val())
+          var dbUser = data.val()
+          
+          const creator = {
+            name: Object.values(dbUser)[0].name,
+          }
+          return creator
+        })
+        .catch(error => {
+          console.log(error)
+          return emptyUserString
+        })
+    }
   },
   getters: {
     user(state) {
-
-      if (state.user !== null && state.user !== undefined){
-          return state.user[Object.keys(state.user)[0]]
+      try{
+        return state.user[Object.keys(state.user)[0]]
+      }catch(err){
+        console.log('Error while getting user: ' + err)
+        return null
       }
-      return null
-
+    },
+    getUserById(state, getters) {
+      try{
+        return (userId) => {
+          return getters.user
+        }
+        
+      }catch(err){
+        console.log('An error happend while getting user by id: ' + err)
+      }
     },
     joinedGroups(state){
       return state.joinedGroups

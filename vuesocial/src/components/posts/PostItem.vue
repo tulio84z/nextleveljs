@@ -22,6 +22,18 @@
         <b-card-text
           v-if="hasGroup"
         >
+          <span class="post-item-published-text">Created by: </span>
+          <b-link class="post-item-published-group-link"
+            :to="'/group/id/' + group.id"
+
+          >
+            {{creator.name}}
+          </b-link>
+        </b-card-text>
+        <br>
+        <b-card-text
+          v-if="hasGroup"
+        >
           <span class="post-item-published-text">Published in: </span>
           <b-link class="post-item-published-group-link"
             :to="'/group/id/' + group.id"
@@ -45,7 +57,18 @@
 <script>
 export default {
   props:['post'],
-
+  data() {
+    return {
+      creator: null
+    }
+  },
+  mounted() {
+    console.log('hi')
+    console.log(this.post.creatorId)
+    this.$store.dispatch("getPostCreator", this.post).then(data => {
+      this.creator = data
+    })
+  },
   computed: {
 
 
