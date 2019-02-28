@@ -24,7 +24,7 @@
         >
           <span class="post-item-published-text">Created by: </span>
           <b-link class="post-item-published-group-link"
-            :to="'/group/id/' + group.id"
+            :to="'/post/user/' + creator.id"
 
           >
             {{creator.name}}
@@ -63,8 +63,7 @@ export default {
     }
   },
   mounted() {
-    console.log('hi')
-    console.log(this.post.creatorId)
+
     this.$store.dispatch("getPostCreator", this.post).then(data => {
       this.creator = data
     })

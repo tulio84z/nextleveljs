@@ -161,7 +161,7 @@ export default {
     },
     getPostCreator({dispatch}, payload) {
       console.log('getPostCreator')
-      
+
       var emptyUserString = 'empty' 
       if(!payload){
         return emptyUserString
@@ -170,11 +170,12 @@ export default {
       
       return firebase.database().ref('/users/' + payload.creatorId).once('value')
         .then(data => {
-          console.log(data.val())
+
           var dbUser = data.val()
           
           const creator = {
             name: Object.values(dbUser)[0].name,
+            id: Object.values(dbUser)[0].id
           }
           return creator
         })

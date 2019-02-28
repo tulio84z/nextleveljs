@@ -12,6 +12,7 @@ import Post from '@/components/posts/DetailPost.vue'
 import CreatePost from '@/components/posts/CreatePost.vue'
 import ListPosts from '@/components/posts/ListPosts.vue'
 import UpdatePost from '@/components/posts/UpdatePost.vue'
+import UserPosts from '@/components/posts/ListUserPosts.vue'
 
 import Group from '@/components/groups/DetailGroup.vue'
 import CreateGroup from '@/components/groups/CreateGroup.vue'
@@ -77,6 +78,12 @@ export default new Router({
       name: "updatePost",
       props: true,
       component: UpdatePost
+    },
+    {
+      path: "/post/user/:id",
+      name: "userPosts",
+      props: true,
+      component: UserPosts
     },
     //Group routes
     {

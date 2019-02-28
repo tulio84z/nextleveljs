@@ -143,11 +143,25 @@ export default {
 
       }
     },
+    getPostsByUser(state, getters){
+      return (userId) => {
+        try{
+          const userPosts = []
+          getters.posts.map(function(entry){
+            if(entry.creatorId === userId){
+              userPosts.push(entry)
+            }
+          })
+          return userPosts
+        }catch(error){
+          console.log('error while trying to get posts by user: ' + error)
+        }
+      }
+    },
     getPostsByGroupId(state, getters) {
       return (groupId) => {
         try{
           const groupPosts = []
-
           getters.posts.map(function(entry){
               if(entry.groupId === groupId){
                 groupPosts.push(entry)
