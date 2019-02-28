@@ -11,6 +11,7 @@
         id="exampleInput3"
         type="text"
         v-model="form.url"
+        required
         placeholder="Enter Image Url" />
     <br>
     <img
@@ -50,7 +51,7 @@ export default {
   },
   computed: {
     isMessageNotBlank () {
-      return this.form.message !== '' && this.form.title !== ''
+      return this.form.message !== '' && this.form.title !== '' && this.form.url
     },
     hasUrl () {
       return this.form.url !== '' && this.form.url !== null && this.form.url !== undefined
@@ -75,8 +76,9 @@ export default {
 
   methods: {
     onSubmit (evt) {
-      evt.preventDefault();
 
+      evt.preventDefault();
+      
       const payload = {
         title: this.form.title,
         url: this.form.url,
@@ -90,7 +92,6 @@ export default {
         payload.id = this.post.id
       }
       this.$store.dispatch(action, payload)
-
       this.$router.push('/')
     },
     onCancel () {

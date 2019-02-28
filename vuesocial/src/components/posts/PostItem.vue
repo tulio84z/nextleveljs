@@ -50,7 +50,7 @@ export default {
 
 
     hasGroup() {
-      return this.post.groupId !== null && this.post.groupId !== undefined
+      return this.post.groupId !== null && this.post.groupId !== undefined && this.post.groupId !== ''
     },
 
     group() {
