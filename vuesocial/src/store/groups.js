@@ -23,6 +23,23 @@ export default {
     
   },
   actions: {
+
+    deleteGroup({commit}, payload){
+      console.log(('deleteGroup action called'))
+
+      firebase.database().ref('/groups/').child(payload.id).remove()
+        .then(data => {
+          console.log('Sucessfully deleted group!')
+        })
+        .catch(error => {
+          console.log('Error while trying to remove group:' + error)
+        })
+
+
+
+    },
+
+
     fetchGroups({commit}) {
       console.log('fetching Groups')
       firebase.database().ref('/groups/').once('value')

@@ -37,8 +37,7 @@ export default {
       })
     },
     deletePost({dispatch, commit}, payload) {
-      console.log('Deleting')
-      console.log(payload.id)
+
       firebase.database().ref('/posts').child(payload.id).remove()
         .then(data => {
           console.log('Removed sucessfully')

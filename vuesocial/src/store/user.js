@@ -2,6 +2,26 @@ import * as firebase from 'firebase';
 import router from '@/router'
 
 
+function getUserById(uid){
+  console.log('getUserById function')
+  var dbUser = null
+  return firebase.database().ref('/users/' + uid).once('value')
+        .then(data => {
+
+          var dbUser = data.val()
+          
+          const creator = {
+            name: Object.values(dbUser)[0].name,
+            id: Object.values(dbUser)[0].id
+          }
+          return creator
+        })
+        .catch(error => {
+          console.log(error)
+        })
+  return null
+}
+
 export default {
   state: {
     user: '',
@@ -159,32 +179,20 @@ export default {
       })
 
     },
-    getPostCreator({dispatch}, payload) {
-      console.log('getPostCreator')
+    getUserById({dispatch}, userId) {
+      console.log('getUserById action')
 
       var emptyUserString = 'empty' 
-      if(!payload){
+      if(!userId){
         return emptyUserString
       }
       
-      
-      return firebase.database().ref('/users/' + payload.creatorId).once('value')
-        .then(data => {
+      return getUserById(userId)
+    },
 
-          var dbUser = data.val()
-          
-          const creator = {
-            name: Object.values(dbUser)[0].name,
-            id: Object.values(dbUser)[0].id
-          }
-          return creator
-        })
-        .catch(error => {
-          console.log(error)
-          return emptyUserString
-        })
-    }
   },
+
+   
   getters: {
     user(state) {
       try{

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1>Posts by {{this.id}}</h1>
+        <h1>Posts by {{this.user.name}}</h1>
         <hr>
             <div v-if="posts">
                 <post-item
@@ -17,13 +17,20 @@
 <script>
 export default {
     props: ['id'],
+    data() {
+        return {
+            user: null
+        }
+    },
+    mounted(){
+        this.$store.dispatch('getUserById', this.id).then(data => {
+            this.user= data
+        })
+    },
     computed: {
         posts(){
             return this.$store.getters.getPostsByUser(this.id)
         },
-        user(){
-
-        }
     },
 
 }

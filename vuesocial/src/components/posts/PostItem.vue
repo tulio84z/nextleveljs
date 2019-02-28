@@ -64,7 +64,7 @@ export default {
   },
   mounted() {
 
-    this.$store.dispatch("getPostCreator", this.post).then(data => {
+    this.$store.dispatch("getUserById", this.post.creatorId).then(data => {
       this.creator = data
     })
   },
