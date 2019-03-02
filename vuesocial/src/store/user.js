@@ -58,8 +58,7 @@ export default {
 
       firebase.database().ref('users/' + userId + '/groupsJoined/').once('value')
         .then(data => {
-          console.log('fetchGroupsJoined')
-          console.log(data.val())
+
           if (data.val()){
             const joinedGroups = Object.keys(data.val())
             commit('setJoinedGroups', joinedGroups)
@@ -91,7 +90,11 @@ export default {
         })
         .then(data => {
 
-          dispatch('increaseUserCount', payload.groupId)
+          //dispatch('increaseUserCount', payload.groupId)
+          return dispatch('addOrRemoveUserInGroup', {groupId: payload.groupId, uid: user.id})
+          
+        })
+        .then(() => {
           dispatch('fetchUserData', user.id)
         })
         .catch(error => {
@@ -107,7 +110,8 @@ export default {
       firebase.database().ref('users/' + user.id + '/groupsJoined/').child(payload.groupId).remove()
         .then(data => {
           console.log('sucessfully left group')
-          dispatch('decreaseUserCount', payload.groupId)
+          //dispatch('decreaseUserCount', payload.groupId)
+          dispatch('addOrRemoveUserInGroup', {groupId: payload.groupId, uid: user.id})
           dispatch('fetchUserData', user.id)
         })
         .catch(error => {
