@@ -28,11 +28,14 @@
         this.$refs.myModalRef.hide()
       },
       leaveGroup() {
-        this.$store.dispatch('leaveGroup', {groupId: this.group.id})
+        this.$store.dispatch('leaveGroup', {groupId: this.group.id, id: this.user.id})
         this.$refs.myModalRef.hide()
       }
     },
     computed: {
+      user(){
+        return this.$store.getters.user
+      },
       getTitle(){
         if(this.notJoined){
           return 'Joining Group'

@@ -15,6 +15,11 @@
 <script>
 export default {
     props: ['group','id'],
+    computed: {
+      user(){
+        return this.$store.getters.user
+      }
+    },
     methods: {
       dismissModal() {
 

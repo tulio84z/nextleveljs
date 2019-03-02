@@ -29,7 +29,7 @@ export default {
   },
   mutations: {
     setUser(state, payload) {
-      console.log('setting User')
+
       state.user = payload
       if (payload === null){
         state.joinedGroups = []
@@ -105,14 +105,13 @@ export default {
     leaveGroup({commit, getters, dispatch}, payload){
       console.log('leaveGroup')
       console.log(payload.groupId)
-      const user = getters.user
+      console.log(payload.id)
 
-      firebase.database().ref('users/' + user.id + '/groupsJoined/').child(payload.groupId).remove()
+      firebase.database().ref('users/' + payload.id + '/groupsJoined/').child(payload.groupId).remove()
         .then(data => {
           console.log('sucessfully left group')
-          //dispatch('decreaseUserCount', payload.groupId)
-          dispatch('addOrRemoveUserInGroup', {groupId: payload.groupId, uid: user.id})
-          dispatch('fetchUserData', user.id)
+          dispatch('addOrRemoveUserInGroup', {groupId: payload.groupId, uid: payload.id})
+          dispatch('fetchUserData', payload.id)
         })
         .catch(error => {
           console.log(error)
