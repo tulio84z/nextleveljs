@@ -90,7 +90,6 @@ export default {
         })
         .then(data => {
 
-          //dispatch('increaseUserCount', payload.groupId)
           return dispatch('addOrRemoveUserInGroup', {groupId: payload.groupId, uid: user.id})
           
         })
