@@ -18,12 +18,12 @@ import MainBackground from '@/components/Background.vue'
 Vue.use(BootstrapVue)
 Vue.config.productionTip = false
 
-Vue.component('post-item', PostItem)
 Vue.component('group-item', GroupItem)
 Vue.component('delete-post-item-dialog', DeletePostDialog)
 Vue.component('join-group-dialog', JoinGroupDialog)
 Vue.component('delete-group-dialog', DeleteGroupDialog)
 Vue.component('my-post-form', PostForm)
+Vue.component('post-item', PostItem)
 
 Vue.component('main-background', MainBackground)
 
