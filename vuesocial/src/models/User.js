@@ -3,5 +3,6 @@ export default class User{
         this.name = _name
         this.price = _price
     }
+    
 }
 

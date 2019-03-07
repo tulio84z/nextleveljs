@@ -1,9 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
-import user from '@/store/user'
-import posts from '@/store/posts'
-import groups from '@/store/groups'
+import user from '@/store/user/user'
+import posts from '@/store/posts/posts'
+import groups from '@/store/groups/groups'
 
 
 Vue.use(Vuex)
